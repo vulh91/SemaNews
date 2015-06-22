@@ -1,0 +1,439 @@
+﻿@using SemaNewsWeb.Helpers
+
+@model SemaNewsWeb.ViewModels.TextSearchVM
+
+
+@{
+    ViewBag.Title = "Tìm kiếm thông thường";
+}
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+
+    <div>
+        @using (Html.BeginForm("TextSearch", "Search", FormMethod.Post, new { @id = "form-search", @class = "form-horizontal" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.SearchQuery.AllWord, "Một trong số các từ này", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.SearchQuery.AllWord, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SearchQuery.AllWord)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.SearchQuery.ExactPhrases, "Chính xác các cụm từ này", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div id="suggest-exactPhrases">
+                        @Html.TextBoxFor(model => model.SearchQuery.ExactPhrases, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.SearchQuery.NoneOfWords, "Không chứa các cụm từ này", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <div id="suggest-noneOfWords">
+                        @Html.TextBoxFor(model => model.SearchQuery.NoneOfWords, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.SearchQuery.AllWord, "Thuộc các chủ đề", new { @class = "col-md-3 control-label" })
+                <div id="" class="col-md-9">
+                    <div id="suggest-topic">
+                        @Html.TextBoxFor(model => model.SearchQuery.AllWord, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-3 control-label">Thời gian đăng tải</label>
+                <div class="col-md-9">
+                    <select id="select-postedTime" class="form-control">
+                        <option selected="selected"></option>
+                        <option value="@DateTimeHelper.ToDay()">Hôm nay</option>
+                        <option value="@DateTimeHelper.WeekStartDay()">Tuần này</option>
+                        <option value="@DateTimeHelper.MonthStartDay()">Tháng này</option>
+                        <option value="@DateTimeHelper.YearStartDay()">Năm này</option>
+                        <option class="option-custom" value="custom">Chỉ định</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="panel-custom-postedTime" class="form-group panel-collapse collapse">
+                <div class="col-md-offset-3">
+                    <div class="col-md-3">
+                        <input id="input-from-postedTime" class="form-control" type="date" />
+                    </div>
+                </div>
+                <div class="col-md-offset-3">
+                    <div class="col-md-3">
+                        <input id="input-to-postedTime" class="form-control" type="date" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-3 control-label">Thời gian thu thập</label>
+                <div class="col-md-9">
+                    <select id="select-collectedTime" class="form-control">
+                        <option selected="selected"></option>
+                        <option value="@DateTimeHelper.ToDay()">Hôm nay</option>
+                        <option value="@DateTimeHelper.WeekStartDay()">Tuần này</option>
+                        <option value="@DateTimeHelper.MonthStartDay()">Tháng này</option>
+                        <option value="@DateTimeHelper.YearStartDay()">Năm này</option>
+                        <option class="option-custom" value="custom">Chỉ định</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="panel-custom-collectedTime" class="form-group panel-collapse collapse">
+                <div class="col-md-offset-3">
+                    <div class="col-md-3">
+                        <input id="input-from-collectedTime" class="form-control" type="date" />
+                    </div>
+                </div>
+                <div class="col-md-offset-2">
+                    <div class="col-md-3">
+                        <input id="input-to-collectedTime" class="form-control" type="date" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <hr />
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(model => model.SearchQuery.IsRelevantToLocalOnly, new { @class = "" })
+                            LIÊN QUAN TỚI TỈNH BÌNH DƯƠNG
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.SearchQuery.SelectedSearchFields, "Vị trí tìm kiếm", new { @class = "col-md-3 control-label" })
+
+                <div class="col-md-9">
+                    <button id="btn-select-fields" class="btn btn-sm btn-default" type="button">Hủy chọn tất cả</button>
+                </div>
+
+                <div id="list-fields" class="col-md-9 col-md-offset-3">
+                    @foreach (var item in Model.SearchFields)
+                    {
+                        <div class="checkbox col-md-3">
+                            <label>
+                                <input type="checkbox" class="field-item" checked="@item.Selected" data-id="@item.Model" data-name="@item.Model" />
+                                @item.Text
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.SearchQuery.SelectedCategories, "Thuộc về các lĩnh vực này", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <button id="btn-select-categories" class="btn btn-sm btn-default" type="button">Hủy chọn tất cả</button>
+                </div>
+                <div id="list-categories" class="col-md-9 col-md-offset-3">
+                    @foreach (var item in Model.RootCategories)
+                    {
+                        <div class="checkbox col-md-3">
+                            <label>
+                                <input type="checkbox" class="category-item" checked="@item.Selected" data-id="@item.Model.Id" data-name="@item.Model.Name" />
+                                @item.Model.Name
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.SearchQuery.SelectedNewspapers, "Thuộc về các trang báo điện tử này", new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <button id="btn-select-newspapers" class="btn btn-sm btn-default" type="button">Hủy chọn tất cả</button>
+                    <button id="btn-select-local-newspapers" class="btn btn-sm btn-default" type="button">Chọn báo trong tỉnh</button>
+                    <button id="btn-select-outer-newspapers" class="btn btn-sm btn-default" type="button">Chọn báo ngoài tỉnh</button>
+                </div>
+                <div id="list-newspapers" class="col-md-9 col-md-offset-3">
+                    @foreach (var item in Model.RootNewspapers)
+                    {
+                        <div class="checkbox col-md-3">
+                            <label>
+                                <input type="checkbox" class="newspaper-item" checked="@item.Selected" data-id="@item.Model.Id" data-name="@item.Model.Name" data-islocal="@item.Model.IsLocal" />
+                                @item.Model.Name
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3 ">
+                    <button class="btn btn-primary btn-submit" type="button"><span class="fa fa-search"></span>Tìm kiếm</button>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Home")"><span class="fa fa-arrow-left"></span>Quay lại</a>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+@using (Html.BeginForm("SearchSubmit", "Search", FormMethod.Post, new { @id = "form-search-submit" }))
+{
+    <input name="query" type="hidden" />
+}
+
+@section scripts
+{
+    <script></script>
+    <script>
+        var isAllFieldsSelected = true;
+        var isAllCategoriesSelected = true;
+        var isAllNewspapersSelected = true;
+        var searchQuery = {};
+        searchQuery.IsSemantic = false;
+
+        $('#btn-select-fields').click(function () {
+            isAllFieldsSelected = !isAllFieldsSelected;
+            if (isAllFieldsSelected) {
+                $(this).text('Hủy chọn tất cả');
+                $('#list-fields .field-item').prop('checked', true);
+            }
+            else {
+                $(this).text('Chọn tất cả');
+                $('#list-fields .field-item').prop('checked', false);
+            }
+        });
+
+        $('.field-item').click(function () {
+            isAllFieldsSelected = IsAllFieldsSelected();
+            if (isAllFieldsSelected)
+                $('#btn-select-fields').text('Hủy chọn tất cả');
+            else
+                $('#btn-select-fields').text('Chọn tất cả');
+        });
+
+        $('#btn-select-categories').click(function () {
+            isAllCategoriesSelected = !isAllCategoriesSelected;
+            if (isAllCategoriesSelected) {
+                $(this).text('Hủy chọn tất cả');
+                $('#list-categories .category-item').prop('checked', true);
+            }
+            else {
+                $(this).text('Chọn tất cả');
+                $('#list-categories .category-item').prop('checked', false);
+                
+            }
+        });
+
+        $('.category-item').click(function () {
+            isAllCategoriesSelected = IsAllCategoriesSelected();
+            if (isAllCategoriesSelected)
+                $('#btn-select-categories').text('Hủy chọn tất cả');
+            else
+                $('#btn-select-categories').text('Chọn tất cả');
+        });
+
+        $('#btn-select-newspapers').click(function () {
+            isAllNewspapersSelected = !isAllNewspapersSelected;
+            if (isAllNewspapersSelected) {
+                $(this).text('Hủy chọn tất cả');
+                $('#list-newspapers .newspaper-item').prop('checked', true);
+            }
+            else {
+                $(this).text('Chọn tất cả');
+                $('#list-newspapers .newspaper-item').prop('checked', false);
+                
+            }
+        });
+
+        $('.newspaper-item').click(function () {
+           
+            isAllNewspapersSelected = IsAllNewspapersSelected();
+            if (isAllNewspapersSelected)
+                $('#btn-select-newspapers').text('Hủy chọn tất cả');
+            else
+                $('#btn-select-newspapers').text('Chọn tất cả');
+        });
+
+        $('#btn-select-local-newspapers').click(function () {
+            isAllNewspapersSelected = false;
+
+            $("#list-newspapers .newspaper-item[data-islocal='True']").prop('checked', true);
+            $("#list-newspapers .newspaper-item[data-islocal='False']").prop('checked', false);
+        });
+
+        $('#btn-select-outer-newspapers').click(function () {
+            isAllNewspapersSelected = false;
+
+            $("#list-newspapers .newspaper-item[data-islocal='True']").prop('checked', false);
+            $("#list-newspapers .newspaper-item[data-islocal='False']").prop('checked', true);
+        });
+
+        $('.collapse').collapse('hide');
+
+        $('#select-postedTime').change(function () {
+            var selectedPostedTime = $(this).val();
+            if (selectedPostedTime == 'custom') {
+                $('#panel-custom-postedTime').collapse('show');
+            }
+            else {
+                $('#panel-custom-postedTime').collapse('hide');
+            }
+        });
+
+        $('#select-collectedTime').change(function () {
+            var selectedCollectedTime = $(this).val();
+            if (selectedCollectedTime == 'custom') {
+                $('#panel-custom-collectedTime').collapse('show');
+            }
+            else {
+                $('#panel-custom-collectedTime').collapse('hide');
+            }
+        });
+
+        $(document).ready(function () {
+            $('#form-search').submit(function(){
+                event.preventDefault();
+                searchSubmit();
+            });
+
+            $('#form-search .btn-submit').click(function () {
+                searchSubmit();
+            });
+
+            function searchSubmit()
+            {
+                searchQuery.AllWord = $("input[name='SearchQuery.AllWord']").val();
+                    
+                searchQuery.ExactPhrases = suggestExactPhrases.getSelection().map(function(elem){
+                    return elem.name;
+                }).join(";");
+
+                searchQuery.NoneOfWords = suggestNoneOfWords.getSelection().map(function(elem)
+                {
+                    return elem.name;
+                }).join(";");
+
+                searchQuery.SelectedTopics = suggestTopic.getSelection().map(function(elem){
+                    return elem.name;
+                }).join(";");
+
+                searchQuery.IsRelevantToLocalOnly = $("input[name='SearchQuery.IsRelevantToLocalOnly']").prop('checked');
+
+                if (isAllFieldsSelected == false) {
+                    var selectedFields = $('#list-fields input.field-item:checked').map(function () {
+                        return $(this).attr('data-name');
+                    }).get();
+                    searchQuery.SelectedSearchFields = selectedFields.join(';');
+                };
+                if (isAllCategoriesSelected == false) {
+                    var selectedCategories = $('#list-categories input.category-item:checked').map(function () {
+                        return $(this).attr('data-name');
+                    }).get();
+                    searchQuery.SelectedCategories = selectedCategories.join(';');
+                };
+                if (isAllNewspapersSelected == false) {
+                    var selectedNewspapers = $('#list-newspapers input.newspaper-item:checked').map(function () {
+                        return $(this).attr('data-name');
+                    }).get();
+                    searchQuery.SelectedNewspapers = selectedNewspapers.join(';');
+                };
+
+                //add posted time info
+                var postedTimeFrom = $('#select-postedTime').val();
+                if (postedTimeFrom != 'custom')
+                    searchQuery.PostedTimeFrom = postedTimeFrom;
+                else {
+                    searchQuery.PostedTimeFrom = $('#input-from-postedTime').val();
+                    searchQuery.PostedTimeTo = $('#input-to-postedTime').val();
+                }
+                //add collected time info
+                var collectedTimeFrom = $('#select-collectedTime').val();
+                if (collectedTimeFrom != 'custom')
+                    searchQuery.CollectedTimeFrom = collectedTimeFrom;
+                else {
+                    searchQuery.CollectedTimeFrom = $('#input-from-collectedTime').val();
+                    searchQuery.CollectedTimeTo = $('#input-to-collectedTime').val();
+                }
+
+                //add Topic info
+                searchQuery.SelectedTopics = suggestTopic.getSelection().map(function(elem){
+                    return elem.name;
+                }).join(";");
+
+                $('#form-search-submit input[name="query"]').val(JSON.stringify(searchQuery));
+                $('#form-search-submit').submit();
+
+                //var data = {
+                //    query : searchQuery
+                //};
+                @*$.ajax({
+                    url: '@Url.Action("AjaxSearchSubmit", "Search")',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if(data.OK == true){
+                            window.location.href= data.Url;
+                        }
+                        else{
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error: function (err) {
+                        notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                    }
+                });*@
+            };
+        });
+
+        
+
+        function IsAllFieldsSelected() {
+            var unSelectedFields = $(".field-item:not(:checked)");
+            return unSelectedFields == null || unSelectedFields.length == 0;
+        }
+        function IsAllCategoriesSelected() {
+            var unselectedCategories = $(".category-item:not(:checked)");
+            return (unselectedCategories == null || unselectedCategories.length == 0)
+        }
+        function IsAllNewspapersSelected() {
+            var unselectedNewspapers = $(".newspaper-item:not(:checked)");
+            return (unselectedNewspapers == null || unselectedNewspapers.length == 0)
+        }
+
+        //Magic suggest
+        var suggestTopic =$('#suggest-topic').magicSuggest({
+            data:  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.AllTopics.Select(m => m.Name))),
+            allowFreeEntries: false,
+            noSuggestionText: 'Chủ đề này không tồn tại',
+            placeholder: '',
+        });
+        var suggestExactPhrases = $('#suggest-exactPhrases').magicSuggest(
+            {
+                hideTrigger: true,
+                placeholder: '',
+                maxDropHeight: 0
+            });
+        var suggestNoneOfWords = $('#suggest-noneOfWords').magicSuggest(
+            {
+                hideTrigger: true,
+                placeholder: '',
+                maxDropHeight: 0
+            });
+
+        //Form validation
+        $("#form-search").validate({
+            rules: {
+            }
+        });
+    </script>
+}

@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+@Html.Raw(ViewBag.htmlDocumentStr)
+
+<!-- STRUCT MANAGE AREA -->
+
+<!-- HEAD -->
+<link rel="stylesheet" href="~/Content/DefineStruct.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="~/Scripts/Custom/DefineStruct.js"></script>
+<!-- END HEAD -->
+
+<div id="WMController" class="WMController CommonCss">
+    <div id="WMPreviewForm">
+        @using (Html.BeginForm("SelectGroup", "FieldStructure", FormMethod.Post))
+        {
+            <input name="fieldId" value="@ViewBag.fieldId" type="hidden" />
+            <select id="WMGroup" name="groupId" style="margin:5px;">
+                <option value ="0">Chọn nhóm cấu trúc có sẵn</option>
+                @{
+                    int differGroup = 0;
+                    foreach (var item in ViewBag.fieldStructures)
+                    {
+                        if (differGroup != item.Group)
+                        {
+                            <option value ="@item.Group">Group @item.Group</option>
+                            differGroup = item.Group;
+                        }
+                    }
+                }
+            </select>
+            <button type="submit" class="btn btn-inverse">Lưu</button>
+            <a class="btn btn-inverse go-back-btn" href="#" style="float:right; margin: 5px;">Quay lại</a>      
+        }
+        <div style="display: none">
+            @foreach (var item in ViewBag.fieldStructures)
+            {
+                <p class="xpath@(item.Group)">@item.Address</p>
+                <p class="notation@(item.Group)">@item.WebElementTypeId</p>
+            }
+        </div>
+
+    </div>         
+</div>
+

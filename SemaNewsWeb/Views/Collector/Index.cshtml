@@ -1,0 +1,66 @@
+﻿@model SemaNewsWeb.ViewModels.CollectorReportsVM
+@{
+    ViewBag.Title = "Quản lí thu thập";
+}
+
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <div class="btn-group">
+            <a class="btn btn-lg btn-default" href="@Url.Action("Index","Home")"><span class="fa fa-home"></span></a>
+            <a class="btn btn-lg btn-primary" href="@Url.Action("Config")"><span class="fa fa-cog"></span></a>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Index", "Collector", FormMethod.Post, new { @class = "form-inline", @id="collector-config" }))
+    {
+        <div class="form-group col-md-3" style="padding:0">
+            <div class="input-group">
+                <span class="input-group-addon">Từ</span>
+                <input type="date" name="FromDate" id="FromDate" class="form-control news-time" value="@(Model.FromDate.HasValue?Model.FromDate.Value.ToString("yyyy-MM-dd"):"")"/>
+            </div>
+        </div>
+        <div class="form-group col-md-3" style="padding:0">
+            <div class="input-group">
+                <span class="input-group-addon">Đến</span>
+                <input type="date" name="ToDate" id="ToDate" class="form-control news-time" value="@(Model.ToData.HasValue?Model.ToData.Value.ToString("yyyy-mm-dd"):"")" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">OK</button>
+    }
+
+    <div class="row">
+        <h1>Thống kê số lượng tin bài thu thập được theo ngày</h1>
+        @Model.ChartArticlesByDays
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <h1>Thống kê số lượng tin bài thu thập được theo trang báo điện tử</h1>
+
+        @Model.ChartArticlesByNewspapers
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <h1>Thống kê tin bài phân bố theo lĩnh vực phân loại</h1>
+
+        @Model.ChartArticlesByCategories
+    </div>
+    <hr class="featurette-divider">
+</div>
+
+@section scripts
+{
+    
+    <script src="../../Scripts/highcharts.js"></script>
+    <script src="../../Scripts/modules/exporting.js"></script>   
+    <script>
+        $('.news-time').change(function () {
+            $('#collector-config').submit();
+        });
+    </script>
+}

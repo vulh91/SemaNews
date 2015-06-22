@@ -1,0 +1,123 @@
+﻿@model IEnumerable<SemaNewsCore.Models.Newspaper>
+
+@{
+    ViewBag.Title = "Danh sách các trang báo điện tử";
+}
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+
+        <div class="btn-group">
+            <a class="btn btn-default" href="@Url.Action("Index","Home")"><span class="fa fa-home"></span></a>
+            <a class="btn btn-primary" href="@Url.Action("Create")"><span class="fa fa-plus"></span></a>
+        </div>
+
+        @using (Html.BeginForm("Index", "Newspaper", FormMethod.Get, new { @class = "", @role = "form" }))
+        {
+            <div class="input-group col-md-9">
+                <label class="sr-only" for="SearchString">Search String</label>
+                @Html.TextBox("Filter", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Tìm kiếm trang báo điện tử",@autofocus="autofocus", @value=ViewBag.FilterString })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"><span class="fa fa-search"></span></button>
+                </span>
+            </div>
+        }
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th class="col-md-2">
+                    Báo điện tử
+                </th>
+                <th class="col-md-2">
+                    Địa chỉ
+                </th>
+                <th class="col-md-3">
+                    Mô tả
+                </th>
+                <th class="col-md-1">
+                    Kích hoạt thu thập
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Url
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        <button class="btn-active btn @(item.IsActivated.HasValue&&item.IsActivated.Value?"btn-success":"btn-default") btn-sm" data-id="@item.Id">Kích hoạt</button>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <a href="@Url.Action("Edit", new { @id = item.Id })" class="btn btn-sm btn-primary"><span class="fa fa-cog"></span></a>
+                            <a href="@Url.Action("Delete", new { @id = item.Id })" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>
+
+
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.btn-active').click(function () {
+                var thisBtn = $(this);
+                var dataId = thisBtn.attr('data-id');
+
+                $.ajax({
+                    url: '@Url.Action("ActivateOrDeactivate", "Newspaper")',
+                    type: 'POST',
+                    data: {id : dataId},
+                    success: function(data) {
+                        if (data.OK == true) {
+                            notifyMessage(data.Message, 'info');
+                            thisBtn.toggleClass('btn-success');
+                            thisBtn.toggleClass('btn-default');
+                        }
+                        else {
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error: function () {
+                        notifyMessage('LỖI! Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,242 @@
+﻿@model SemaNewsWeb.ViewModels.HighlightVM
+@{
+    var allNewspapers = ViewData["AllNewspapers"] as SemaNewsCore.Models.Newspaper[];
+    var allCategories = ViewData["AllCategories"] as SemaNewsCore.Models.GField[];
+    var allTopics = ViewData["AllTopics"] as SemaNewsCore.Models.Topic[];
+    var isRelevantToLocalOnly = (bool)ViewData["IsRelevantToLocalOnly"];
+}
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+        @if(isRelevantToLocalOnly == true)
+        {
+            <h3>Tin tức tỉnh Bình Dương</h3>
+        }
+        <form class="form-inline">
+            <div class="form-group col-md-3" style="padding:0">
+                <div class="input-group">
+                    <span class="input-group-addon">Từ</span>
+                    <input id="from-time" class="form-control news-time" type="date" value="@Model.FromTime.ToString("yyyy-MM-dd")"/>
+                </div>
+            </div>
+            <div class="form-group col-md-3" style="padding:0">
+                <div class="input-group">
+                    <span class="input-group-addon">Đến</span>
+                    <input id="to-time" class="form-control news-time" type="date" value="@Model.ToTime.ToString("yyyy-MM-dd")"/>
+                </div>
+            </div>
+            <a id="btn-cog-filter" class="btn btn-default collapsed" data-tooggle="tooltip" data-placement="top" title="Lọc tin"><span class="fa fa-cog"></span></a>
+        </form>
+
+        <div id="panel-cog-filter" class="row panel-collapse collapse">
+            <div class="form-horizontal col-md-9">
+                <div class="panel panel-default mirror-background">
+                    <div class="panel-heading">
+                        <h3 class="">Lọc tin</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-md-10 col-md-offset-2">
+                                <input type="checkbox" id="isRelevantToLocalOnly" name="isRelevantToLocalOnly" value="@isRelevantToLocalOnly" checked="@isRelevantToLocalOnly"/>
+                                LIÊN QUAN TỚI TỈNH BÌNH DƯƠNG?
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Các trang báo điện tử</label>
+                            <div class="col-md-10">
+                                <input id="suggest-newspapers" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Các lĩnh vực</label>
+                            <div class="col-md-10">
+                                <input id="suggest-categories" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Các chủ đề</label>
+                            <div class="col-md-10">
+                                <input id="suggest-topics" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-primary btn-ok" type="button">Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="panel-group" id="accordion">
+            @foreach (var resultGroup in Model.ViewGroups)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel-@resultGroup.Id">
+                                @resultGroup.Name
+                                <span class="badge">@resultGroup.Articles.Count</span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="panel-@resultGroup.Id" class="panel-collapse collapse @(Model.Display == SemaNewsWeb.ViewModels.DisplayMode.Default ? "in" : "")">
+                        <div class="panel-body">
+                            @if (resultGroup.Articles.Count == 0)
+                            {
+                                <div class="alert">Không có tin bài nào...</div>
+                            }
+                            @foreach (var item in resultGroup.Articles)
+                            {
+                                <div class="panel panel-default panel-article @(item.Article.IsRelevantToLocal.Value?"panel-article-active":"")">
+                                        <h4><a class="success-link" href="@Url.Action("Index", "Article", new { @id = item.Article.Id })">@item.Article.Title</a></h4>
+                                        <p>
+                                            @(item.Article.ReleasedDate.HasValue ? @item.Article.ReleasedDate.Value.ToString("HH:mm dd/MM/yyyy") : "")
+                                            @(string.IsNullOrEmpty(@item.Article.Author) ? "" : ("| " + @item.Article.Author))
+                                        </p>
+                                        <div>
+                                            <div class="col-md-1">
+                                                @if (string.IsNullOrEmpty(item.Article.GetImageLink()) == false)
+                                                {
+                                                    <img src="@item.Article.GetImageLink()" style="width:60px;height:60px;" />
+                                                }
+                                            </div>
+                                            <div class="col-md-11">
+                                                <p>@Html.Raw(@item.Article.Abstract)</p>
+                                            </div>
+                                        </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="del-style-switcher mirror-background" style="right: -250px;">
+    <div class="del-switcher-toggle toggle-hide" data-tooggle="tooltip" data-placement="left" title="Sắp xếp hiển thị"></div>
+    @using (Html.BeginForm("Index", "Highlights"))
+    {
+        @Html.HiddenFor(model => model.Newspapers)
+        @Html.HiddenFor(model => model.Categories)
+        @Html.HiddenFor(model => model.Topics)
+        @Html.HiddenFor(model => model.IsRelevantToLocalOnly)
+        @Html.HiddenFor(model => model.IsLocalSourceOnly)
+        @Html.HiddenFor(model => model.FromTime);
+        @Html.HiddenFor(model => model.ToTime);
+        <div class="form-group">
+            <label class="control-label">Sắp xếp tin theo</label>
+            <div class="">
+                <select id="Display" name="Display" class="form-control">
+                    <option value="@SemaNewsWeb.ViewModels.DisplayMode.Default">Mặc định</option>
+                    <option value="@SemaNewsWeb.ViewModels.DisplayMode.ByNewspapers">Trang báo điện tử</option>
+                    <option value="@SemaNewsWeb.ViewModels.DisplayMode.ByCategories">Lĩnh vực phân loại</option>
+                    <option value="@SemaNewsWeb.ViewModels.DisplayMode.ByTopics">Chủ đề</option>
+                    <option value="@SemaNewsWeb.ViewModels.DisplayMode.ByGeography">Báo trong tỉnh, ngoài tỉnh</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="">
+                <button type="submit" class="btn btn-sm btn-primary">Đồng ý</button>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script>
+        var fromTime = '@Model.FromTime.ToString("yyyy-MM-dd")';
+        var toTime = '@Model.ToTime.ToString("yyyy-MM-dd")';
+        var allNewspapers =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(allNewspapers.Select(m => m.Name).ToArray()));
+        var allCategories =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(allCategories.Select(m => m.Name).ToArray()));
+        var allTopics =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(allTopics.Select(m => m.Name).ToArray()));
+        var selectedNewspapers =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.Newspapers.Select(m => m.Name).ToArray()));
+        var selectedCategories = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.Categories.Select(m => m.Name).ToArray()));
+        var selectedTopics = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.Topics.Select(m => m.Name).ToArray()));
+        
+        var MAX_SELECTION = 1000;
+
+        $(document).ready(function () {
+            $('#panel-cog-filter').collapse({toggle:false});
+            $('#btn-cog-filter').click(function(){
+                $('#panel-cog-filter').collapse('toggle');
+            });
+
+            $('#Display').val('@Html.Raw(Model.Display)');
+
+            $('.news-time').change(function () {
+                var fromTime = $('#from-time').val();
+                var toTime = $('#to-time').val();
+                var relevantToLocal = $('#isRelevantToLocalOnly').prop('checked')
+                window.location.href = 'Highlights?fromTime=' + fromTime+'&toTime=' + toTime + '&isRelevantToLocalOnly=' + relevantToLocal;
+            });
+
+            var suggestNewspapers =$('#suggest-newspapers').magicSuggest({
+                data: allNewspapers,
+                allowFreeEntries: false,
+                placeholder: '',
+                noSuggestionText: 'Trang báo điện tử này không tồn tại',
+                maxSelection : MAX_SELECTION,
+            });
+
+            var suggestCategories =$('#suggest-categories').magicSuggest({
+                data: allCategories,
+                allowFreeEntries: false,
+                noSuggestionText: 'Lĩnh vực này không tồn tại',
+                placeholder: '',
+                maxSelection: MAX_SELECTION,
+            });
+
+            var suggestTopics = $('#suggest-topics').magicSuggest({
+                data:  allTopics,
+                allowFreeEntries: false,
+                noSuggestionText: 'Topic này không tồn tại',
+                placeholder: '',
+                maxSelection : MAX_SELECTION,
+            });
+
+            if(allNewspapers.length != selectedNewspapers.length)
+            {
+                suggestNewspapers.setValue(selectedNewspapers);
+            }
+            if(allCategories.length != selectedCategories.length)
+                suggestCategories.setValue(selectedCategories);
+            if(allTopics.length != selectedTopics.length)
+                suggestTopics.setValue(selectedTopics);
+
+            $('#panel-cog-filter .btn-ok').click(function()
+            {
+                var paramNewspapers = suggestNewspapers.getSelection().map(function(elem){
+                    return elem.name;
+                }).join(";");
+                var paramCategories = suggestCategories.getSelection().map(function(elem)
+                {
+                    return elem.name;
+                }).join(";");
+                var paramTopics = suggestTopics.getSelection().map(function(elem)
+                {
+                    return elem.name;
+                }).join(";");
+
+                var isRelevantToLocalOnly = $('#isRelevantToLocalOnly').prop('checked');
+
+                window.location.href= '@Url.Action("Index", "Highlights")' + 
+                    "?fromTime=" + fromTime +
+                    "&toTime=" + toTime +
+                    "&newspaper=" + paramNewspapers +
+                    "&category=" + paramCategories +
+                    "&topics=" +paramTopics +
+                    "&isRelevantToLocalOnly=" + isRelevantToLocalOnly;
+            });
+        });
+    </script>
+}

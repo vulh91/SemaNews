@@ -1,0 +1,72 @@
+﻿@model SemaNewsWeb.ViewModels.CategoryDetailsVM
+@{
+    var pageNumber = (int)ViewBag.PageNumber;
+    var pageCount = (int)ViewBag.PageCount;
+    var pageSize = (int)ViewBag.PageSize;
+}
+<div id="main-container" class="container">
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">
+            <h1><span class="fa fa-warning"></span>ERROR</h1>
+            <h4>Lĩnh vực yêu cầu không tìm thấy hoặc không tồn tại!</h4>
+        </div>
+    }
+    else
+    {
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+            <ol class="breadcrumb" style="margin:0">
+                @foreach (var item in Model.Ancestors)
+                {
+                    <li>@Html.ActionLink(item.Name, "Details", new { @id = item.Id })</li>
+                }
+            </ol>
+        </div>
+        <div>
+            @if (pageCount > 1)
+            {
+                <ul class="pagination" style="margin:0;padding:0">
+                    <li><a href="@Url.Action("Details", "Category", new { page = 1, size = pageSize })" data-toggle="tooltip" data-placement="left" title="Trang đầu">&laquo;</a></li>
+                    @for (int i = pageNumber - 10; i < pageNumber; i++)
+                    {
+                        if (i > 0)
+                        {
+                        <li><a href="@Url.Action("Details", "Category", new { page = i, size = pageSize })">@i</a></li>
+                        }
+                    }
+                    <li class="active"><a href="#">@pageNumber</a></li>
+                    @for (int i = pageNumber + 1; i < pageNumber + 10; i++)
+                    {
+                        if (i > pageCount) { break; }
+                        <li><a href="@Url.Action("Details", "Category", new { page = i, size = pageSize })">@i</a></li>
+                    }
+                    <li><a href="@Url.Action("Details", "Category", new { page = pageCount, size = pageSize })" data-toggle="tooltip" data-placement="left" title="Trang cuối">&raquo;</a></li>
+                </ul>
+            }
+            
+        </div>
+        <div class="col-md-9">
+            @foreach (var item in Model.Articles)
+            {
+                <div class="row">
+                    <h3><a class="success-link" href="@Url.Action("Index", "Article", new { id = item.Id })">@item.Title</a></h3>
+                    <div id="article-info" class="post-header">
+                        @if (item.ReleasedDate.HasValue)
+                        {
+                            <span class="fa fa-clock-o"> @item.ReleasedDate.Value.ToString("hh:mm dd/mm/yy") - </span>
+                        }
+                        <span class="fa fa-map-marker"> @item.Newspaper.Name</span>
+                    </div>
+                    <p>@Html.Raw(@item.Abstract)</p>
+                </div>
+            }
+         
+        </div>
+    }
+</div>
+@section scripts{
+    <script>
+
+    </script>
+}

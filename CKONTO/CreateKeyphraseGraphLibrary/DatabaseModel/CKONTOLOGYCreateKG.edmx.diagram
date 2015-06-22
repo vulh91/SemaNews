@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb3efbd81ebb42729c0452410938560c" Name="Diagram1">
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Alpha" Width="1.5" PointX="2.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Beta" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Class_ClassRelationship" Width="1.5" PointX="8" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.ClassRelationship" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.IPWeight" Width="1.5" PointX="4.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Keyphrase" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseClass" Width="1.5" PointX="8" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseRelationship" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.KeyphraseClass" Width="1.5" PointX="5.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.KeyphraseGraph" Width="1.5" PointX="2.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.KeyphraseRelationship" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Location" Width="1.5" PointX="4.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Organization" Width="1.5" PointX="6.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.PartOfSpeech" Width="1.5" PointX="8.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Person" Width="1.5" PointX="10.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Phrase" Width="1.5" PointX="10.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.POSDictionary" Width="1.5" PointX="10.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.sysdiagram" Width="1.5" PointX="10.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="CKONTOLOGYCreateKGModel.Topic" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_ClassRelationshipTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,46 @@
+﻿@model SemaNewsCore.Models.SavedArticle
+
+@{
+    ViewBag.Title = Model != null ? Model.Title : "Lỗi";
+}
+<div id="main-container" class="container">
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">
+            <h1><span class="fa fa-warning"></span>ERROR</h1>
+            <h4>Lĩnh vực yêu cầu không tìm thấy hoặc không tồn tại!</h4>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-9">
+            <div id="article-title" class="page-header">
+                <h1><a href="@Model.Url">@Html.Raw(Model.Title)</a></h1>
+                <div id="article-info" class="post-header">
+
+                    <span class="fa fa-clock-o"> @(Model.ReleasedDate.HasValue?Model.ReleasedDate.Value.ToString("hh:mm dd/mm/yy"):"")</span>
+                    -
+                    <span class="fa fa-map-marker"> @Model.Newspaper.Name</span>
+                    @*-
+                    <span class="fa fa-user"> @Model.Author</span>*@
+                </div>
+            </div>
+
+            <div id="article-abstract">
+                <p class="lead">
+                    @Html.Raw(Model.Abstract)
+                </p>
+            </div>
+            <div id="article-content">
+                @Html.Raw(@Model.Content)
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    }
+</div>
+@section scripts{
+    <script>
+
+    </script>
+}

@@ -1,0 +1,120 @@
+﻿@model SemaNewsWeb.ViewModels.ArticleSetVM
+@{
+    ViewBag.Title = "Tập các tin bài";
+    var count = 1;
+}
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title <span id="article-count" class="label label-info">@Model.CountTotal</span></h1>
+
+        @using (Html.BeginForm("Set", "Article", FormMethod.Get, new { @class = "form form-inline" }))
+        {
+            <div class="form-group col-md-3" style="padding: 0">
+                <div class="input-group">
+                    <div class="input-group-addon">Từ</div>
+                    @Html.TextBoxFor(m => m.FromIndex, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-3" style="padding: 0">
+                <div class="input-group">
+                    <div class="input-group-addon">Kích thước</div>
+                    @Html.TextBoxFor(m => m.SizePage, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-3" style="padding: 0">
+                <div class="input-group">
+                    <div class="input-group-addon">Lĩnh vực</div>
+                    @Html.DropDownListFor(m => m.CategoryId, @Model.Categories.Select(m => new SelectListItem() { Text = m.Name, Value = m.Id.ToString() }), "", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-ok">Đồng ý</button>
+            </div>
+        }
+
+    </div>
+    <table id="table-article" class="table table-hover">
+        <tr class="active">
+            <th>STT</th>
+            <th>ID</th>
+            <th>TIÊU ĐỀ</th>
+            <th>TÓM TẮT</th>
+            <th class="col-md-1"></th>
+        </tr>
+        @foreach (var item in @Model.Articles)
+        {
+            <tr data-id="@item.Id">
+                <td>@(count++)</td>
+                <td>@item.Id</td>
+                <td><a href="@Url.Action("Index", "Article", new { id = @item.Id })">@item.Title</a></td>
+                <td>@item.Abstract</td>
+                <td class="">
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-primary"  data-tooggle="tooltip" data-placement="top" title="Chỉnh sửa tin bài"><span class="fa fa-edit"></span></button>
+                        <button class="btn btn-sm btn-danger btn-delete" data-id="@item.Id"  data-tooggle="tooltip" data-placement="top" title="Xóa tin bài"><span class="fa fa-trash-o"></span></button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="modal fade" id="modal-delete-article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="myModalLabel">XÓA TIN BÀI</h2>
+            </div>
+            <div class="modal-body">
+                <h3>Bạn có chắc chắn muốn xóa tin bài này?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger btn-delete">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        var articleCount = @Html.Raw(Model.CountTotal);
+        $('.btn-delete').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal-delete-article .btn-delete').attr('data-id', id);
+            $('#modal-delete-article').modal('show');
+        });
+
+        $('#modal-delete-article .btn-delete').click(function () {
+            var id = $(this).attr('data-id');
+            deleteArticle(id);
+        });
+
+        function deleteArticle(id) {
+            $.ajax({
+                url: '@Url.Action("Delete")',
+                type: 'POST',
+                data: { id : id},
+                success: function (data) {
+                    $('#modal-delete-article').modal('hide');
+                    if (data.OK == true) {
+                        notifyMessage(data.Message, 'success');
+                        $('#table-article tr[data-id = ' + id + ']').remove();
+                        articleCount = articleCount - 1;
+                        $('#article-count').text(articleCount);
+                    }
+                    else {
+                        notifyMessage(data.Message, 'danger');
+                    }
+                },
+                error: function () {
+                    $('#modal-delete-article').modal('hide');
+                }
+            });
+        }
+    </script>
+}

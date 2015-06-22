@@ -1,0 +1,96 @@
+﻿@model SemaNewsWeb.ViewModels.FieldVM
+
+@{
+    ViewBag.Title = "Create New Field";
+    var fieldsCount = ViewBag.FieldsCount;
+}
+
+<div id="main-container" class="container">
+    <div class="col-sm-3 buffer-top-md">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="@Url.Action("Edit", "Newspaper", new { id = @Model.Newspaper.Id })">Thông tin cơ bản</a></li>
+            <li class="active"><a href="@Url.Action("ManageFields", "Newspaper", new { id = @Model.Newspaper.Id })">Các lĩnh vực <span class="badge pull-right">@fieldsCount</span></a></li>
+            <li><a href="@Url.Action("ManageFieldStructures", "Newspaper", new { id = @Model.Newspaper.Id })">Cấu trúc các trang lĩnh vực</a></li>
+            <li><a href="@Url.Action("ManageArticleStructures", "Newspaper", new { id = @Model.Newspaper.Id })">Cấu trúc các trang tin bài</a></li>
+        </ul>
+    </div>
+    
+<div class="col-sm-9">
+    <div class="page-header">
+        <h1>@Model.Newspaper.Name<small>- Thêm trang lĩnh vực</small></h1>
+    </div>
+    @using (Html.BeginForm("Create", "Field", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Field.NewspaperId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Field.Name,"Tên trang lĩnh vực", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.Field.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Field.Name)
+            </div>
+        </div>
+                
+        <div class="form-group">
+            @Html.LabelFor(model => model.Field.Url,"Địa chỉ URL", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.Field.Url, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Field.Url)
+            </div>
+        </div>
+            
+            
+        <div class="form-group">
+            @Html.LabelFor(model => model.Field.Description,"Mô tả", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.Field.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Field.Description)
+            </div>
+        </div>
+            
+        <div class="form-group">
+            @Html.LabelFor(model => model.Field.Group, "Nhóm cấu trúc", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.Field.Group, new SelectList(Model.FieldStructures, "GroupIdentity", "GroupIdentity"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Field.Group)
+            </div>
+        </div>
+            
+        <div class="form-group">
+            @Html.LabelFor(model => model.Field.IsActivated, "Kích hoạt thu thập ?" , new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.Field.IsActivated, new SelectListItem[] { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "Yes", Value = "True", Selected = true } }, new { @class = "form-control col-sm-6" })
+                @Html.ValidationMessageFor(model => model.Field.IsActivated)
+            </div>
+        </div>
+            
+        <div class="form-group">
+            @Html.LabelFor(model => model.GFieldId, "Lĩnh vực phân loại",new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.GFieldId, new SelectList(Model.GFields, "Id", "Name", ""), "", new { @class = "form-control" })
+                <span class="help-block">Bỏ trống nếu bạn muốn chọn lĩnh vực phân loại có cùng tên với trang lĩnh vực này</span>
+                @Html.ValidationMessageFor(model => model.GFieldId)
+            </div>
+        </div>
+                
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentFieldId, "Trang lĩnh vực cha", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.ParentFieldId, new SelectList(Model.SiblingFields, "Id", "Name", Model.ParentFieldId), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ParentFieldId)
+            </div>
+        </div>
+                
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a class="btn btn-default" href="@Url.Action("ManageFields", "Newspaper", new { id = Model.Newspaper.Id })"><span class="fa fa-arrow-left"></span> Quay lại</a>
+                <input type="submit" value="Đồng ý tạo" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>
+
+</div>

@@ -1,0 +1,199 @@
+﻿<Window x:Class="SemaNews.CollectorEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SemaNews.CollectorEditor"
+        xmlns:localcmds="clr-namespace:SemaNews.CollectorEditor.Commands"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        Icon="Icons/SemaNewsIcon.ico"
+        Title="Bộ thu thập tin - SemaNews" Height="500" Width="900" 
+        StateChanged="Window_StateChanged"
+        Closing="Window_Closing_1">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles\ButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static localcmds:WindowCommands.ExitWindow}" Executed="ExitWindowCommand_Executed" CanExecute="ExitWindowCommand_CanExecute" />
+        <CommandBinding Command="{x:Static localcmds:WindowCommands.RestoreWindow}" Executed="RestoreWindowCommand_Executed" CanExecute="RestoreWindowCommand_CanExecute" />
+        <CommandBinding Command="{x:Static localcmds:WindowCommands.MinimizeWindowToTray}" Executed="MinimizeWindowToTrayCommand_Executed" CanExecute="MinimizeWindowToTrayCommand_CanExecute" />
+        <CommandBinding Command="{x:Static localcmds:WindowCommands.AboutWindow}" Executed="AboutWindowCommand_Executed" CanExecute="AboutWindowCommand_CanExecute" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <tb:TaskbarIcon IconSource="Icons/SemaNewsIcon.ico" ToolTipText="Bộ thu thập tin - SemaNews" MenuActivation="LeftOrRightClick">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <ContextMenu.CommandBindings>
+                        <CommandBinding Command="{x:Static localcmds:WindowCommands.ExitWindow}" Executed="ExitWindowCommand_Executed" CanExecute="ExitWindowCommand_CanExecute" />
+                        <CommandBinding Command="{x:Static localcmds:WindowCommands.RestoreWindow}" Executed="RestoreWindowCommand_Executed" CanExecute="RestoreWindowCommand_CanExecute" />
+                    </ContextMenu.CommandBindings>
+                    <MenuItem Header="_Hiển thị Bộ thu thập" Command="{x:Static localcmds:WindowCommands.RestoreWindow}"/>
+                    <Separator />
+                    <MenuItem Header="_Thoát hoàn toàn" Command="{x:Static  localcmds:WindowCommands.ExitWindow}"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        
+        <!-- Menu -->
+        <Border>
+            <StackPanel Grid.Row="0" Orientation="Vertical" Margin="5">
+                <StackPanel.CommandBindings>
+                    <CommandBinding Command="{x:Static localcmds:CollectorCommands.Start}" CanExecute="StartCommand_CanExecute" Executed="StartCommand_Executed" />
+                    <CommandBinding Command="{x:Static localcmds:CollectorCommands.Stop}" CanExecute="StopCommand_CanExecute" Executed="StopCommand_Executed" />
+                    <CommandBinding Command="{x:Static localcmds:CollectorCommands.Reset}" CanExecute="ResetCommand_CanExecute" Executed="ResetCommand_Executed" />
+                    <CommandBinding Command="{x:Static localcmds:CollectorCommands.CollectNews}" CanExecute="CollectNewsCommand_CanExecute" Executed="CollectNewsCommand_Executed" />
+                    <CommandBinding Command="{x:Static localcmds:CollectorCommands.StopCollectNews}" CanExecute="StopCollectNewsCommand_CanExecute" Executed="StopCollectNewsCommand_Executed" />
+                    <CommandBinding Command="{x:Static localcmds:CollectorCommands.Config}" CanExecute="ConfigCommand_CanExecute" Executed="ConfigCommand_Executed" />
+                </StackPanel.CommandBindings>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="btnStart" Content="KHỞI ĐỘNG" 
+                    Command="{x:Static localcmds:CollectorCommands.Start}" />
+                    <Button Name="btnStop" Content="TẠM DỪNG"
+                    Command="{x:Static localcmds:CollectorCommands.Stop}" />
+                    <Button Name="btnReset" Content="KHỞI ĐỘNG LẠI"
+                    Command="{x:Static localcmds:CollectorCommands.Reset}" />
+                    <Button Name="btnConfig" Content="CẤU HÌNH"
+                Command="{x:Static localcmds:CollectorCommands.Config}"/>
+                    <Button Name="btnAbout" Content="_About"
+                            Command="{x:Static localcmds:WindowCommands.AboutWindow}">
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" >
+                    <Button Name="btnCollect"
+                    Command="{x:Static localcmds:CollectorCommands.CollectNews}">
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock>Ngay lập tức khởi động quá trình thu thập tin</TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        <StackPanel>
+                            <Polygon Fill="Green" HorizontalAlignment="Center" >
+                                <Polygon.Points>
+                                    <Point X="0" Y="0" />
+                                    <Point X="15" Y="10" />
+                                    <Point X="0" Y="20" />
+                                </Polygon.Points>
+                            </Polygon>
+                            <TextBlock>THU THẬP</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnStopCollect" Command="{x:Static localcmds:CollectorCommands.StopCollectNews}">
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock>
+                                    Ngay lập tức hủy quá trình thu thập tin đang hoạt động
+                                </TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        <StackPanel>
+                            <Polygon HorizontalAlignment="Center" Fill="Red">
+                                <Polygon.Points>
+                                    <Point X="0" Y="0" />
+                                    <Point X="15" Y="0" />
+                                    <Point X="15" Y="15" />
+                                    <Point X="0" Y="15" />
+                                </Polygon.Points>
+                            </Polygon>
+                            <TextBlock>HỦY THU THẬP</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <!-- End Menu -->
+
+        <!-- Collector Info-->
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Collector Information-->
+            <GroupBox Header="Bộ thu thập">
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="Blue" Width="5" Height="5" Margin="5,0" />
+                            <TextBlock>TRẠNG THÁI</TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="Blue" Width="5" Height="5" Margin="5,0" />
+                            <TextBlock>KẾT THÚC</TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <Label Grid.Row="2" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="Blue" Width="5" Height="5" Margin="5,0" />
+                            <TextBlock>BẮT ĐẦU</TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <Label Grid.Row="3" Grid.Column="0">TIẾN ĐỘ</Label>
+
+                    <Label Grid.Row="0" Grid.Column="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="Blue" Width="5" Height="5" Margin="5,0" />
+                            <TextBlock>CHẾ ĐỘ THU THẬP</TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="Blue" Width="5" Height="5" Margin="5,0" />
+                            <TextBlock>CHIẾN LƯỢC THU THẬP</TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <Label Grid.Row="2" Grid.Column="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="Blue" Width="5" Height="5" Margin="5,0" />
+                            <TextBlock>SỐ LƯỢNG TIN BÀI</TextBlock>
+                        </StackPanel>
+                    </Label>
+
+                    <Label Name="lblStatus" Grid.Row="0" Grid.Column="1" Content="{Binding Collector.CollectorInfo.Status}" />
+                    <Label Name="lblEndTime" Grid.Row="1" Grid.Column="1" Content="{Binding Collector.CollectorInfo.EndTime}" />
+                    <Label Name="lblStartTime" Grid.Row="2" Grid.Column="1" Content="{Binding Collector.CollectorInfo.StartTime}"></Label>
+                    <ProgressBar Name="prgCollector" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Value="{Binding Collector.CollectorInfo.Progress}"></ProgressBar>
+
+                    <Label Name="lblCollectingMode" Grid.Row="0" Grid.Column="3"/>
+                    <Label Name="lblCollectingApproach" Grid.Row="1" Grid.Column="3"/>
+                    <Label Name="lblArticleCount" Grid.Row="2" Grid.Column="3" Content="{Binding Collector.CollectorInfo.ArticlesCount}"/>
+                </Grid>
+            </GroupBox>
+            <Line Grid.Row="1"></Line>
+            <GroupBox Header="Diễn biến thu thập" Grid.Row="1">
+                <ListBox Grid.Row="1" Margin="0,10,0,0" ItemsSource="{Binding Messages}" Name="lstMessages" Background="#FFE2E2E2"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                </ListBox>
+            </GroupBox>
+
+        </Grid>
+        <!-- End Collector Info-->
+
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="2">
+            <Label Name="lblEngineStatus" Content="{Binding Collector.CollectorInfo.Status}" />
+        </StatusBar>
+        <!-- End Status Bar-->
+    </Grid>
+</Window>

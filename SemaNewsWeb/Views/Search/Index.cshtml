@@ -1,0 +1,365 @@
+﻿@model SemaNewsWeb.ViewModels.SearchResultVM
+@{
+    ViewBag.Title = "Kết quả Tìm Kiếm";
+    var query = ViewBag.Query;
+    var timePublishedFrom = Model.Query.TimePublishedFrom;
+    var timePublishedTo = Model.Query.TimePublishedTo;
+    var timeCollectedFrom = Model.Query.TimeCollectedFrom;
+    var timeCollectedTo = Model.Query.TimeCollectedTo;
+}
+<div id="main-container" class="container">
+    <div class="page-header">
+        <form id="form-search" role="search">
+            <h1>Có @Model.ArticlesCount kết quả tìm được</h1>
+
+            <div class="input-group col-md-9">
+                <label class="sr-only" for="SearchString">Search String</label>
+
+                <input id="queryStr" class="form-control" autofocus = "autofocus" placeholder="Nhập câu truy vấn tìm kiếm" value="@query"/>
+                <span class="input-group-btn">
+                    <button id="btn-save-query" type="button" class="btn btn-success" data-tooggle="tooltip" data-placement="top" title="Lưu kết quả tìm kiếm"><span class="fa fa-save"></span></button>
+                    <button id="btn-cog-filter" type="button" class="btn btn-default" data-tooggle="tooltip" data-placement="top" title="Lọc kết quả tìm kiếm"><span class="fa fa-cog"></span></button>
+                    <button type="button" class="btn btn-primary btn-search-submit" data-tooggle="tooltip" data-placement="top" title="Thực hiện tìm kiếm"><span class="fa fa-search"></span></button>
+                </span>
+            </div>
+        </form>
+        <div id="panel-wrapper" class="panel-group">
+            <div id="panel-cog-filter" class="row panel-collapse collapse">
+                <form class="form-horizontal col-md-9">
+                    <div class="panel panel-default mirror-background">
+                        <div class="panel-heading">
+                            <h3 class="">Lọc kết quả tìm kiếm</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Các trang báo điện tử</label>
+                                <div class="col-md-10">
+                                    <div id="suggest-newspapers"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Các lĩnh vực</label>
+                                <div class="col-md-10">
+                                    <div id="suggest-categories"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Các chủ đề</label>
+                                <div class="col-md-10">
+                                    <div id="suggest-topics"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Thời gian đăng tải</label>
+                                <div class="col-md-10">
+                                    <div id="panel-custom-publishedTime" class="form-group">
+                                        <div class="col-md-4">
+                                            <input id="input-from-publishedTime" class="form-control" type="date" value="@(timePublishedFrom.HasValue ? timePublishedFrom.Value.ToString("yyyy-MM-dd") : "")"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input id="input-to-publishedTime" class="form-control" type="date" value="@(timePublishedTo.HasValue ? timePublishedTo.Value.ToString("yyyy-MM-dd") : "")"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Thời gian thu thập</label>
+                                <div class="col-md-10">
+                                    <div id="panel-custom-collectedTime" class="form-group">
+                                        <div class="col-md-4">
+                                            <input id="input-from-collectedTime" class="form-control" type="date" value="@(timeCollectedFrom.HasValue ? timeCollectedFrom.Value.ToString("yyyy-MM-dd") : "")"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input id="input-to-collectedTime" class="form-control" type="date" value="@(timeCollectedTo.HasValue ? timeCollectedTo.Value.ToString("yyyy-MM-dd") : "")"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button class="btn btn-primary btn-search-submit" type="button">Đồng ý</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="panel-save-query" class="row panel-collapse collapse">
+                <form class="form-horizontal col-md-9">
+                    <div class="panel panel-default mirror-background">
+                        <div class="panel-heading">
+                            <h3>Lưu kết quả tìm kiếm</h3>
+                        </div>
+                        <div class="panel-body">
+                            <input id="IdArticles" type="hidden" value="@ViewBag.ArticleIds" />
+                            <input id="QueryContent" type="hidden" value="@Model.Query.ToString()" />
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="Name">Tên</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" id="Name" name="Name" value="@query"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="Description">Ghi chú</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="Description" name="Description" rows="3" placeholder="Ghi chú"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <button type="button" class="btn btn-success btn-save-submit"><span class="fa fa-save"></span>Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="container col-md-9">
+        <div class="panel-group" id="accordion">
+            @foreach (var resultGroup in Model.RestultGroups)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel-@resultGroup.Id">
+                                @resultGroup.Name
+                                <span class="badge">@resultGroup.Articles.Count</span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="panel-@resultGroup.Id" class="panel-collapse collapse @(Model.RestultGroups.Count<=1?"in":"")">
+                        <div class="panel-body">
+                            @foreach (var item in resultGroup.Articles)
+                            {
+                                <div data-id="@item.Id" class="panel panel-default panel-article @(item.Article.IsRelevantToLocal.Value?"panel-article-active":"")">
+                                    <div>
+                                        <button type="button" class="close btn-remove-article" data-id="@item.Id" data-tooggle="tooltip" data-placement="top" title="Bỏ tin bài"><span aria-hidden="true">&times;</span></button>
+                                        <h4>
+                                            <a class="success-link" href="@Url.Action("Index", "Article", new { @id = item.Article.Id })">@item.Article.Title</a>
+                                        </h4>
+                                    </div>
+                                    <p>
+                                        @(item.Article.ReleasedDate.HasValue ? @item.Article.ReleasedDate.Value.ToString("HH:mm dd/MM/yyyy") : "")
+                                        @(string.IsNullOrEmpty(@item.Article.Author) ? "" : ("| " + @item.Article.Author))
+                                    </p>
+                                    <div>
+                                        <div class="col-md-1">
+                                            @if (string.IsNullOrEmpty(item.Article.GetImageLink()) == false)
+                                            {
+                                                <img src="@item.Article.GetImageLink()" style="width:60px;height:60px;" />
+                                            }
+                                        </div>
+                                        <div class="col-md-11">
+                                            <p>@Html.Raw(@item.Article.Abstract)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+    </div>
+</div>
+
+<div class="del-style-switcher mirror-background" style="right: -250px;" >
+    <div class="del-switcher-toggle toggle-hide" data-tooggle="tooltip" data-placement="left" title="Sắp xếp hiển thị"></div>
+    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "form" }))
+    {
+        <input id="query" name="query" type="hidden" value="@ViewBag.Query" />
+        <input id="isSemantic" name="isSemantic" type="hidden" value=@ViewBag.IsSemantic"" />
+        <div class="form-group">
+            <label class="control-label">Hiển thị kết quả theo</label>
+            <div class="">
+                <select id="display" name="display" class="form-control">
+                    <option value="Default">Mặc định</option>
+                    <option value="ByNewspapers">Trang báo điện tử</option>
+                    <option value="ByCategories">Lĩnh vực phân loại</option>
+                    <option value="ByTopics">Chủ đề</option>
+                    <option value="ByGeography">Báo trong tỉnh, ngoài tỉnh</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="">
+                <button type="submit" class="btn btn-sm btn-primary">Đồng ý</button>
+            </div>
+        </div>
+    }
+</div>
+
+@using (Html.BeginForm("SearchSubmit", "Search", FormMethod.Post, new { @id = "form-search-submit" }))
+{
+    <input name="query" type="hidden" />
+}
+@section scripts{
+    <script>
+        var searchQuery = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.Query));
+        var allowNewspapers =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.AllowNewspapers));
+        var allowCategories = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.AllowCategories));
+        var allowTopics = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.AllowTopics));
+        var isQuerySaved = false;
+        var ignoreArticleIds = [];
+
+        var suggestNewspapers =$('#suggest-newspapers').magicSuggest({
+            data: allowNewspapers,
+            allowFreeEntries: false,
+            placeholder: '',
+            noSuggestionText: 'Trang báo điện tử này không tồn tại'
+        });
+
+        var suggestCategories =$('#suggest-categories').magicSuggest({
+            data:  allowCategories,
+            allowFreeEntries: false,
+            noSuggestionText: 'Lĩnh vực này không tồn tại',
+            placeholder: ''
+        });
+
+        var suggestTopics = $('#suggest-topics').magicSuggest({
+            data:  allowTopics,
+            allowFreeEntries: false,
+            noSuggestionText: 'Topic này không tồn tại',
+            placeholder: ''
+        });
+
+        if(searchQuery.SourceNews!=null && searchQuery.SourceNews.length != 0)
+        {
+            suggestNewspapers.setValue(allowNewspapers);
+        }
+
+        if(searchQuery.Categories!=null && searchQuery.Categories.length!=0)
+        {
+            suggestCategories.setValue(allowCategories);
+        }
+
+        if(searchQuery.Topics!=null && searchQuery.Topics.length!=0)
+        {
+            suggestTopics.setValue(allowTopics);
+        }
+
+        $(document).ready(function(){
+            $('#display').val('@Html.Raw(Model.Display)');
+
+            $('#form-search').submit(function(e){
+                e.preventDefault();
+                searchSubmit();
+            });
+
+            $('.btn-search-submit').click(function(){
+                searchSubmit();
+            });
+
+            $('#panel-save-query .btn-save-submit').click(function()
+            {
+                var saveQueryModel = {};
+                saveQueryModel.Name = $('#panel-save-query #Name').val();
+                saveQueryModel.Description = $('#panel-save-query #Description').val();
+                saveQueryModel.QueryContent = $('#panel-save-query #QueryContent').val();
+                saveQueryModel.ArticleIds= $('#panel-save-query #IdArticles').val();
+                saveQueryModel.IgnoreArticleIds = ignoreArticleIds.join(',');
+                
+                var dataModel = {saveSearchResultVM : saveQueryModel};
+                $.ajax({
+                    url : '@Url.Action("SaveSearchResult", "Search")',
+                    type: 'POST',
+                    data : JSON.stringify(dataModel),
+                    contentType: 'application/json',
+                    success: function(data)
+                    {
+                        if(data.OK == true)
+                        {
+                            notifyMessage(data.Message, 'success');
+                            $('#panel-save-query').collapse('hide');
+                            $('#btn-save-query').prop("disabled",true);
+                        }
+                        else
+                        {
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error: function()
+                    {
+                        notifyMessage('ERROR! Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu','danger');
+                    }
+                });
+            });
+
+            $('#btn-save-query').tooltip('hide');
+            $('#btn-cog-filter').tooltip('hide');
+
+            $('#panel-save-query').collapse({toggle:false});
+            $('#panel-cog-filter').collapse({toggle:false});
+            
+            $('#btn-save-query').click(function(){
+                $('#panel-save-query').collapse('toggle');
+                $('#panel-cog-filter').collapse('hide');
+            });
+            $('#btn-cog-filter').click(function(){
+                $('#panel-save-query').collapse('hide');
+                $('#panel-cog-filter').collapse('toggle');
+            });
+
+            $('.btn-remove-article').click(function()
+            {
+                var articleId = $(this).attr('data-id');
+                ignoreArticleIds.push(articleId);
+                var panelArticle = $('.panel-article[data-id='+  articleId +']').remove();
+            });
+
+            function searchSubmit(){
+                var query = {};
+                query.SearchString = $('#queryStr').val();
+                query.SelectedNewspapers = suggestNewspapers.getSelection().map(function(elem){
+                    return elem.name;
+                }).join(";");
+                query.SelectedCategories = suggestCategories.getSelection().map(function(elem)
+                {
+                    return elem.name;
+                }).join(";");
+                query.SelectedTopics = suggestTopics.getSelection().map(function(elem)
+                {
+                    return elem.name;
+                }).join(";");
+                
+                query.IsSemantic = @Html.Raw(@ViewBag.IsSemantic.ToString().ToLower());
+                query.PostedTimeFrom = $('#input-from-publishedTime').val();
+                query.PostedTimeTo = $('#input-to-publishedTime').val();
+                query.CollectedTimeFrom = $('#input-from-collectedTime').val();
+                query.CollectedTimeTo = $('#input-to-collectedTime').val();
+
+                
+                $('#form-search-submit input[name="query"]').val(JSON.stringify(query));
+                $('#form-search-submit').submit();
+
+                @*var data = {};
+                data.query = query;
+                $.ajax({
+                    url: '@Url.Action("SearchSubmit")',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if(data.OK == true){
+                            window.location.href= data.Url;
+                        }
+                        else{
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error: function (err) {
+                        notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                    }
+                });*@
+            };
+        });
+    </script>
+}

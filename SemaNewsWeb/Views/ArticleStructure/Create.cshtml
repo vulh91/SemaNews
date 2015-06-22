@@ -1,0 +1,70 @@
+﻿@model SemaNewsCore.Models.ArticleStructure
+@{
+    Layout = null;
+}
+
+@Html.Raw(ViewBag.htmlDocumentStr)
+
+<!-- STRUCT MANAGE AREA -->
+
+<!-- HEAD -->
+<link rel="stylesheet" href="~/Content/DefineStruct.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="~/Scripts/Custom/DefineStruct.js"></script>
+<!-- END HEAD -->
+
+<!-- BODY -->
+<!-- Define field popup -->
+<div id="article-define-str-popup" class="WMDefineForm CommonCss">
+    <div class="modal-header"> 
+        <button aria-hidden="true" data-dismiss="modal" class="close" onclick="CloseDefineForm()" type="button">×</button>
+        <h3>Định nghĩa cấu trúc trang tin bài</h3>
+    </div>
+    @using (Html.BeginForm("Create","ArticleStructure", FormMethod.Post)) {
+        <div class="modal-body">
+            <table>
+                @Html.HiddenFor(model=>model.Newspaper.Id)
+                @Html.EditorFor(model=>model.TitleElement, new { label = "Tiêu đề" })
+                @Html.EditorFor(model=>model.AbstractElement, new { label = "Tóm tắt" })
+                @Html.EditorFor(model=>model.DatePostedElement, new { label = "Thời gian đăng tải" })
+                @Html.EditorFor(model=>model.ContentElement, new { label = "Nội dung" })
+                @Html.EditorFor(model=>model.AuthorElement, new { label = "Tác giả" })
+                @Html.EditorFor(model=>model.TagElement, new { label = "Các từ khóa" })
+                @Html.EditorFor(model=>model.PaginationElement, new { label = "Phân trang" })
+            </table>
+        </div>
+        <div class="modal-footer">
+
+             <input type="submit" class="btn" value="Lưu" style="text-align:center" />
+        </div>
+    }
+</div>
+<!-- End Define field popup -->
+
+
+<div id="WMController" class="WMController CommonCss">
+    <div id="WMCreateForm">
+   		<input type="button" id="WMbtnHoverMode" class="btn" onclick="ActiveHover()" value="Bắt đầu chọn"/>
+   		<input type="text" id="WMtxtXpath" class="btn"  placeholder="xpath" />
+        <input type="button" id="WMbtnParentEle" class="btn" onclick="ParentSelect()" value="Element chat"/>
+        <input type="button" id="WMbtnChildEle" class="btn" onclick="FirstChildSelect()" value="Element con"/>
+        <input type="button" id="WMbtnPrevSibling" class="btn" onclick="PreviousSiblingSelect()" value="Đồng cấp trước"/>
+        <input type="button" id="WMbtnNextSibling" class="btn" onclick="NextSiblingSelect()" value="Đồng cấp tiếp theo"/>
+
+        <br />
+             
+        <input type="button" id="article-add-element-btn" class="btn" value="Thêm Element"/>
+        <input type="button" id="article-struct-form-btn" class="btn" value="Bảng định nghĩa" onclick="ActiveDefineForm()"/>
+        <a class="btn btn-inverse" href="#" style="float:right">Quay lại</a>
+        <div id="WMConfirmInputValue" style="color:#FFF; display:none;">Đã lưu vào "bảng định nghĩa" !!!</div>
+
+    </div>         
+</div>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#article-define-str-popup').show();
+        }, 500);
+    });
+</script>

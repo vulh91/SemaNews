@@ -1,0 +1,266 @@
+﻿/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    padding-top: 45px;
+    background: #081622;
+    background-image: url(/Images/body-background.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    font-family: 'Calibri';
+}
+
+/* Main Content 
+    -----------------------------------*/
+#main-container {
+    min-height: 630px;
+}
+/* Footer
+    -----------------------------------*/
+footer {
+    bottom: 0;
+    width: 100%;
+}
+
+#footer-white {
+    background: #fff;
+    padding-top: 70px;
+    padding-bottom: 30px;
+    -webkit-font-smoothing: antialiased;
+}
+
+    #footer-white .menu h3 {
+        margin-top: 0;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    #footer-white .menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 30px;
+    }
+
+        #footer-white .menu ul li {
+            display: block;
+            margin-bottom: 9px;
+        }
+
+    #footer-white p {
+        font-size: 13px;
+        color: #666;
+    }
+
+    #footer-white .newsletter .signup p {
+        float: right;
+        text-align: left;
+        line-height: 20px;
+    }
+
+    #footer-white .newsletter .signup {
+        margin-bottom: 40px;
+    }
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* Logo script
+    --------------------------------------*/
+.logo-image-lg {
+    margin: 0 auto;
+    width: 20%;
+    height: 20%;
+}
+
+
+a.btn {
+    text-decoration: none;
+}
+
+/* Border
+    ------------------------------------*/
+.buffer-top-md {
+    padding-top: 47px;
+}
+
+small {
+    font-weight: 100;
+}
+
+/* Image
+    ----------------------------------*/
+.img-center {
+}
+
+.img-normal {
+}
+
+.carousel-control.left, .carousel-control.right {
+    /*background: none;*/
+}
+
+
+.carousel .item {
+    background: rgba(78, 93, 108, 0.8);
+}
+
+.mirror-background {
+    background: rgba(78, 93, 108, 0.8);
+}
+
+
+/*Custom list*/
+ul.unstyled {
+    margin-left: 0;
+    list-style: none;
+}
+
+.tile {
+    background-color: rgba(146, 146, 146, 0.20);
+    padding: 14px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+    .tile p {
+        margin: 10px 0 22px 0;
+        font: 13px/22px 'Lato', sans-serif;
+    }
+
+    .tile-content {
+        min-height:170px;
+    }
+
+.tile.tile-active:before {
+    background: url("../Images/red_ribbon.png") 0 0 no-repeat;
+    background-size: 82px 82px;
+    content: "";
+    height: 82px;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    width: 82px;
+}
+
+    .tile.tile-active {
+        background: #4E5E8A;
+    }
+
+#btn-add-time {
+    margin-bottom: 10px;
+}
+
+/* Custom input-group 
+    --------------------------------*/
+
+.input-group-addon {
+    background-color: #808080;
+}
+
+
+/* Dropdown multi-levels
+    */
+
+.dropdown-submenu{
+    position:relative;
+}
+ 
+.dropdown-submenu > .dropdown-menu
+{
+    top:0;
+    left:100%;
+    margin-top:-6px;
+    margin-left:-1px;
+}
+ 
+.dropdown-submenu:hover > .dropdown-menu{
+    display:block;
+}
+ 
+.dropdown-submenu > a:after{
+    display:block;
+    content:" ";
+    float:right;
+    width:0;
+    height:0;
+    border-color:transparent;
+    border-style:solid;
+    border-width:5px 0 5px 5px;
+    border-left-color:#cccccc;
+    margin-top:5px;
+    margin-right:-10px;
+}
+ 
+.dropdown-submenu:hover > a:after{
+    border-left-color:#ffffff;
+}
+ 
+.dropdown-submenu .pull-left{
+    float:none;
+}
+ 
+.dropdown-submenu.pull-left > .dropdown-menu{
+    left:-100%;
+    margin-left:10px;
+}
+/*
+    Panel collapse
+    */
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+a.success-link {
+    color: #09dc00;
+}
+
+.bs-docs-section {
+    margin-bottom: 60px;
+}
+
+.panel-article{
+    padding: 5px 10px;
+}
+
+.panel-article-active {
+    background:#3C4B7C;
+}

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="a81e7328-fec3-435c-bc0e-6b63cea289a7" ChangeDateTime="05/08/2014 03:04:37">
+    <Property Name="ElementName" Value="[dbo].[FK_Article_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Article]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Article_Field]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3c7a8605-661c-4052-a1a3-4f582961c01c" ChangeDateTime="07/30/2014 07:20:24">
+    <Property Name="ElementName" Value="[dbo].[SavedArticle].[IdArticle]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SavedArticle]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[ArticleId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b70a058e-0c0d-48c1-862f-71e068c2808c" ChangeDateTime="07/30/2014 07:20:38">
+    <Property Name="ElementName" Value="[dbo].[SavedArticle].[IdUserQuery]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SavedArticle]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[UserQueryId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cd655d49-f8ac-4e01-9af0-c133ea3f793c" ChangeDateTime="07/30/2014 07:20:55">
+    <Property Name="ElementName" Value="[dbo].[UserQuery].[IdUser]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserQuery]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[UserId]" />
+  </Operation>
+</Operations>

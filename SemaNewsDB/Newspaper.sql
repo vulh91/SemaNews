@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Newspaper]
+(
+	[Id] INT IDENTITY NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(MAX) NOT NULL,
+	[Url] NVARCHAR(MAX) NOT NULL,
+	[IsLocal] BIT DEFAULT 'False',
+	[Description] NVARCHAR(MAX) NULL,
+	[DefinedTime] SMALLDATETIME NULL,
+	[IsActivated] BIT DEFAULT 'False',
+)

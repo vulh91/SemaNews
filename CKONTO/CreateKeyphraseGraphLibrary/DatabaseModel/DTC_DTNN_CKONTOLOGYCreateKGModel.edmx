@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DTC_DTNN_CKONTOLOGYCreateKGModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="DTC_DTNN_CKONTOLOGYCreateKGModelStoreContainer">
+          <EntitySet Name="Alpha" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Alpha" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Beta" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Beta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Class_ClassRelationship" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Class_ClassRelationship" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClassRelationship" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.ClassRelationship" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IPWeight" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.IPWeight" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Keyphrase" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Keyphrase_KeyphraseClass" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase_KeyphraseClass" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Keyphrase_KeyphraseRelationship" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase_KeyphraseRelationship" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="KeyphraseClass" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseClass" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="KeyphraseGraph" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseGraph" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="KeyphraseRelationship" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseRelationship" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Location" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Organization" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Organization" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PartOfSpeech" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.PartOfSpeech" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Person" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Phrase" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Phrase" store:Type="Tables" store:Schema="dbo" store:Name="Phrase">
+            <DefiningQuery>SELECT 
+      [Phrase].[Id] AS [Id], 
+      [Phrase].[Name] AS [Name]
+      FROM [dbo].[Phrase] AS [Phrase]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="POSDictionary" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.POSDictionary" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Topic" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Topic" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_BetaTable_KeyphraseRelationshipTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_BetaTable_KeyphraseRelationshipTable">
+            <End Role="KeyphraseRelationship" EntitySet="KeyphraseRelationship" />
+            <End Role="Beta" EntitySet="Beta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetaTable_KeyphraseRelationshipTable1" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_BetaTable_KeyphraseRelationshipTable1">
+            <End Role="KeyphraseRelationship" EntitySet="KeyphraseRelationship" />
+            <End Role="Beta" EntitySet="Beta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_ClassRelationshipTable_ClassRelationshipTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Class_ClassRelationshipTable_ClassRelationshipTable">
+            <End Role="ClassRelationship" EntitySet="ClassRelationship" />
+            <End Role="Class_ClassRelationship" EntitySet="Class_ClassRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Class_ClassRelationshipTable_KeyphraseClassTable">
+            <End Role="KeyphraseClass" EntitySet="KeyphraseClass" />
+            <End Role="Class_ClassRelationship" EntitySet="Class_ClassRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable1" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Class_ClassRelationshipTable_KeyphraseClassTable1">
+            <End Role="KeyphraseClass" EntitySet="KeyphraseClass" />
+            <End Role="Class_ClassRelationship" EntitySet="Class_ClassRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable">
+            <End Role="KeyphraseClass" EntitySet="KeyphraseClass" />
+            <End Role="Keyphrase_KeyphraseClass" EntitySet="Keyphrase_KeyphraseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Keyphrase_KeyphraseClassTable_KeyphraseTable">
+            <End Role="Keyphrase" EntitySet="Keyphrase" />
+            <End Role="Keyphrase_KeyphraseClass" EntitySet="Keyphrase_KeyphraseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable">
+            <End Role="KeyphraseRelationship" EntitySet="KeyphraseRelationship" />
+            <End Role="Keyphrase_KeyphraseRelationship" EntitySet="Keyphrase_KeyphraseRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable">
+            <End Role="Keyphrase" EntitySet="Keyphrase" />
+            <End Role="Keyphrase_KeyphraseRelationship" EntitySet="Keyphrase_KeyphraseRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1">
+            <End Role="Keyphrase" EntitySet="Keyphrase" />
+            <End Role="Keyphrase_KeyphraseRelationship" EntitySet="Keyphrase_KeyphraseRelationship" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Alpha">
+          <Key>
+            <PropertyRef Name="FirstKeyphraseId" />
+            <PropertyRef Name="SecondKeyphraseId" />
+          </Key>
+          <Property Name="FirstKeyphraseId" Type="bigint" Nullable="false" />
+          <Property Name="SecondKeyphraseId" Type="bigint" Nullable="false" />
+          <Property Name="AlphaValue" Type="real" />
+        </EntityType>
+        <EntityType Name="Beta">
+          <Key>
+            <PropertyRef Name="FirstRelationId" />
+            <PropertyRef Name="SecondRelationId" />
+          </Key>
+          <Property Name="FirstRelationId" Type="bigint" Nullable="false" />
+          <Property Name="SecondRelationId" Type="bigint" Nullable="false" />
+          <Property Name="RelevanceValue" Type="real" />
+        </EntityType>
+        <EntityType Name="Class_ClassRelationship">
+          <Key>
+            <PropertyRef Name="SuperClassId" />
+            <PropertyRef Name="SubClassId" />
+            <PropertyRef Name="RelationshipId" />
+          </Key>
+          <Property Name="SuperClassId" Type="bigint" Nullable="false" />
+          <Property Name="SubClassId" Type="bigint" Nullable="false" />
+          <Property Name="RelationshipId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClassRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="IPWeight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Value" Type="real" />
+        </EntityType>
+        <EntityType Name="Keyphrase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MonoKeyphrases" Type="nvarchar" MaxLength="50" />
+          <Property Name="Label" Type="nvarchar(max)" />
+          <Property Name="FormOrder" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Keyphrase_KeyphraseClass">
+          <Key>
+            <PropertyRef Name="KeyphraseId" />
+            <PropertyRef Name="ClassId" />
+          </Key>
+          <Property Name="KeyphraseId" Type="bigint" Nullable="false" />
+          <Property Name="ClassId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Keyphrase_KeyphraseRelationship">
+          <Key>
+            <PropertyRef Name="SourceId" />
+            <PropertyRef Name="TargetId" />
+            <PropertyRef Name="RelationshipId" />
+          </Key>
+          <Property Name="SourceId" Type="bigint" Nullable="false" />
+          <Property Name="TargetId" Type="bigint" Nullable="false" />
+          <Property Name="RelationshipId" Type="bigint" Nullable="false" />
+          <Property Name="RelValue" Type="real" />
+        </EntityType>
+        <EntityType Name="KeyphraseClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KeyphraseGraph">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="KeyphraseGraph" Type="ntext" />
+        </EntityType>
+        <EntityType Name="KeyphraseRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MinValue" Type="real" />
+          <Property Name="MaxValue" Type="real" />
+          <Property Name="Description" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LocationWeight" Type="float" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrganizationName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Synonym" Type="nvarchar(max)" />
+          <Property Name="OrganizationWeight" Type="float" />
+        </EntityType>
+        <EntityType Name="PartOfSpeech">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdentityString" Type="nvarchar(max)" />
+          <Property Name="IdentitySynonym" Type="nvarchar(max)" />
+          <Property Name="PersonWeight" Type="float" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'DTC_DTNN_CKONTOLOGY.dbo.Phrase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Phrase">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POSDictionary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PartOfSpeechId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Keyphrases" Type="nvarchar(max)" />
+          <Property Name="KG" Type="ntext" />
+        </EntityType>
+        <Association Name="FK_BetaTable_KeyphraseRelationshipTable">
+          <End Role="KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseRelationship" Multiplicity="1" />
+          <End Role="Beta" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Beta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beta">
+              <PropertyRef Name="FirstRelationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetaTable_KeyphraseRelationshipTable1">
+          <End Role="KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseRelationship" Multiplicity="1" />
+          <End Role="Beta" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Beta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beta">
+              <PropertyRef Name="SecondRelationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_ClassRelationshipTable_ClassRelationshipTable">
+          <End Role="ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.ClassRelationship" Multiplicity="1" />
+          <End Role="Class_ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Class_ClassRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class_ClassRelationship">
+              <PropertyRef Name="RelationshipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable">
+          <End Role="KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseClass" Multiplicity="1" />
+          <End Role="Class_ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Class_ClassRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class_ClassRelationship">
+              <PropertyRef Name="SuperClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable1">
+          <End Role="KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseClass" Multiplicity="1" />
+          <End Role="Class_ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Class_ClassRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class_ClassRelationship">
+              <PropertyRef Name="SubClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable">
+          <End Role="KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseClass" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase_KeyphraseClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseClass">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseTable">
+          <End Role="Keyphrase" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase_KeyphraseClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyphrase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseClass">
+              <PropertyRef Name="KeyphraseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable">
+          <End Role="KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.KeyphraseRelationship" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase_KeyphraseRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseRelationship">
+              <PropertyRef Name="RelationshipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable">
+          <End Role="Keyphrase" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase_KeyphraseRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyphrase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseRelationship">
+              <PropertyRef Name="SourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1">
+          <End Role="Keyphrase" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Store.Keyphrase_KeyphraseRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyphrase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseRelationship">
+              <PropertyRef Name="TargetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DTC_DTNN_CKONTOLOGYCreateKGModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DTC_DTNN_CKONTOLOGYCreateKGEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Alphas" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Alpha" />
+          <EntitySet Name="Betas" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Beta" />
+          <EntitySet Name="Class_ClassRelationship" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Class_ClassRelationship" />
+          <EntitySet Name="ClassRelationships" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.ClassRelationship" />
+          <EntitySet Name="IPWeights" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.IPWeight" />
+          <EntitySet Name="Keyphrases" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase" />
+          <EntitySet Name="Keyphrase_KeyphraseClass" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseClass" />
+          <EntitySet Name="Keyphrase_KeyphraseRelationship" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseRelationship" />
+          <EntitySet Name="KeyphraseClasses" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseClass" />
+          <EntitySet Name="KeyphraseGraphs" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseGraph" />
+          <EntitySet Name="KeyphraseRelationships" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseRelationship" />
+          <EntitySet Name="Locations" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Location" />
+          <EntitySet Name="Organizations" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Organization" />
+          <EntitySet Name="PartOfSpeeches" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.PartOfSpeech" />
+          <EntitySet Name="People" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Person" />
+          <EntitySet Name="Phrases" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Phrase" />
+          <EntitySet Name="POSDictionaries" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.POSDictionary" />
+          <EntitySet Name="sysdiagrams" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.sysdiagram" />
+          <EntitySet Name="Topics" EntityType="DTC_DTNN_CKONTOLOGYCreateKGModel.Topic" />
+          <AssociationSet Name="FK_BetaTable_KeyphraseRelationshipTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable">
+            <End Role="KeyphraseRelationship" EntitySet="KeyphraseRelationships" />
+            <End Role="Beta" EntitySet="Betas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetaTable_KeyphraseRelationshipTable1" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable1">
+            <End Role="KeyphraseRelationship" EntitySet="KeyphraseRelationships" />
+            <End Role="Beta" EntitySet="Betas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_ClassRelationshipTable_ClassRelationshipTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_ClassRelationshipTable">
+            <End Role="ClassRelationship" EntitySet="ClassRelationships" />
+            <End Role="Class_ClassRelationship" EntitySet="Class_ClassRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable">
+            <End Role="KeyphraseClass" EntitySet="KeyphraseClasses" />
+            <End Role="Class_ClassRelationship" EntitySet="Class_ClassRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable1" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable1">
+            <End Role="KeyphraseClass" EntitySet="KeyphraseClasses" />
+            <End Role="Class_ClassRelationship" EntitySet="Class_ClassRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseTable">
+            <End Role="Keyphrase" EntitySet="Keyphrases" />
+            <End Role="Keyphrase_KeyphraseClass" EntitySet="Keyphrase_KeyphraseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable">
+            <End Role="Keyphrase" EntitySet="Keyphrases" />
+            <End Role="Keyphrase_KeyphraseRelationship" EntitySet="Keyphrase_KeyphraseRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1">
+            <End Role="Keyphrase" EntitySet="Keyphrases" />
+            <End Role="Keyphrase_KeyphraseRelationship" EntitySet="Keyphrase_KeyphraseRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable">
+            <End Role="KeyphraseClass" EntitySet="KeyphraseClasses" />
+            <End Role="Keyphrase_KeyphraseClass" EntitySet="Keyphrase_KeyphraseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable" Association="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable">
+            <End Role="KeyphraseRelationship" EntitySet="KeyphraseRelationships" />
+            <End Role="Keyphrase_KeyphraseRelationship" EntitySet="Keyphrase_KeyphraseRelationship" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Alpha">
+          <Key>
+            <PropertyRef Name="FirstKeyphraseId" />
+            <PropertyRef Name="SecondKeyphraseId" />
+          </Key>
+          <Property Name="FirstKeyphraseId" Type="Int64" Nullable="false" />
+          <Property Name="SecondKeyphraseId" Type="Int64" Nullable="false" />
+          <Property Name="AlphaValue" Type="Single" />
+        </EntityType>
+        <EntityType Name="Beta">
+          <Key>
+            <PropertyRef Name="FirstRelationId" />
+            <PropertyRef Name="SecondRelationId" />
+          </Key>
+          <Property Name="FirstRelationId" Type="Int64" Nullable="false" />
+          <Property Name="SecondRelationId" Type="Int64" Nullable="false" />
+          <Property Name="RelevanceValue" Type="Single" />
+          <NavigationProperty Name="KeyphraseRelationship" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable" FromRole="Beta" ToRole="KeyphraseRelationship" />
+          <NavigationProperty Name="KeyphraseRelationship1" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable1" FromRole="Beta" ToRole="KeyphraseRelationship" />
+        </EntityType>
+        <EntityType Name="Class_ClassRelationship">
+          <Key>
+            <PropertyRef Name="SuperClassId" />
+            <PropertyRef Name="SubClassId" />
+            <PropertyRef Name="RelationshipId" />
+          </Key>
+          <Property Name="SuperClassId" Type="Int64" Nullable="false" />
+          <Property Name="SubClassId" Type="Int64" Nullable="false" />
+          <Property Name="RelationshipId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ClassRelationship" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_ClassRelationshipTable" FromRole="Class_ClassRelationship" ToRole="ClassRelationship" />
+          <NavigationProperty Name="KeyphraseClass" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable" FromRole="Class_ClassRelationship" ToRole="KeyphraseClass" />
+          <NavigationProperty Name="KeyphraseClass1" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable1" FromRole="Class_ClassRelationship" ToRole="KeyphraseClass" />
+        </EntityType>
+        <EntityType Name="ClassRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Class_ClassRelationship" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_ClassRelationshipTable" FromRole="ClassRelationship" ToRole="Class_ClassRelationship" />
+        </EntityType>
+        <EntityType Name="IPWeight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Value" Type="Single" />
+        </EntityType>
+        <EntityType Name="Keyphrase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MonoKeyphrases" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FormOrder" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Keyphrase_KeyphraseClass" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseTable" FromRole="Keyphrase" ToRole="Keyphrase_KeyphraseClass" />
+          <NavigationProperty Name="Keyphrase_KeyphraseRelationship" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable" FromRole="Keyphrase" ToRole="Keyphrase_KeyphraseRelationship" />
+          <NavigationProperty Name="Keyphrase_KeyphraseRelationship1" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1" FromRole="Keyphrase" ToRole="Keyphrase_KeyphraseRelationship" />
+        </EntityType>
+        <EntityType Name="Keyphrase_KeyphraseClass">
+          <Key>
+            <PropertyRef Name="KeyphraseId" />
+            <PropertyRef Name="ClassId" />
+          </Key>
+          <Property Name="KeyphraseId" Type="Int64" Nullable="false" />
+          <Property Name="ClassId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Keyphrase" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseTable" FromRole="Keyphrase_KeyphraseClass" ToRole="Keyphrase" />
+          <NavigationProperty Name="KeyphraseClass" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable" FromRole="Keyphrase_KeyphraseClass" ToRole="KeyphraseClass" />
+        </EntityType>
+        <EntityType Name="Keyphrase_KeyphraseRelationship">
+          <Key>
+            <PropertyRef Name="SourceId" />
+            <PropertyRef Name="TargetId" />
+            <PropertyRef Name="RelationshipId" />
+          </Key>
+          <Property Name="SourceId" Type="Int64" Nullable="false" />
+          <Property Name="TargetId" Type="Int64" Nullable="false" />
+          <Property Name="RelationshipId" Type="Int64" Nullable="false" />
+          <Property Name="RelValue" Type="Single" />
+          <NavigationProperty Name="Keyphrase" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable" FromRole="Keyphrase_KeyphraseRelationship" ToRole="Keyphrase" />
+          <NavigationProperty Name="Keyphrase1" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1" FromRole="Keyphrase_KeyphraseRelationship" ToRole="Keyphrase" />
+          <NavigationProperty Name="KeyphraseRelationship" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable" FromRole="Keyphrase_KeyphraseRelationship" ToRole="KeyphraseRelationship" />
+        </EntityType>
+        <EntityType Name="KeyphraseClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Class_ClassRelationship" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable" FromRole="KeyphraseClass" ToRole="Class_ClassRelationship" />
+          <NavigationProperty Name="Class_ClassRelationship1" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable1" FromRole="KeyphraseClass" ToRole="Class_ClassRelationship" />
+          <NavigationProperty Name="Keyphrase_KeyphraseClass" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable" FromRole="KeyphraseClass" ToRole="Keyphrase_KeyphraseClass" />
+        </EntityType>
+        <EntityType Name="KeyphraseGraph">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="KeyphraseGraph1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="KeyphraseRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MinValue" Type="Single" />
+          <Property Name="MaxValue" Type="Single" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Betas" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable" FromRole="KeyphraseRelationship" ToRole="Beta" />
+          <NavigationProperty Name="Betas1" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_BetaTable_KeyphraseRelationshipTable1" FromRole="KeyphraseRelationship" ToRole="Beta" />
+          <NavigationProperty Name="Keyphrase_KeyphraseRelationship" Relationship="DTC_DTNN_CKONTOLOGYCreateKGModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable" FromRole="KeyphraseRelationship" ToRole="Keyphrase_KeyphraseRelationship" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LocationWeight" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Synonym" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="OrganizationWeight" Type="Double" />
+        </EntityType>
+        <EntityType Name="PartOfSpeech">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="IdentityString" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="IdentitySynonym" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="PersonWeight" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Phrase">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="POSDictionary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="PartOfSpeechId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Keyphrases" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="KG" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_BetaTable_KeyphraseRelationshipTable">
+          <End Role="KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseRelationship" Multiplicity="1" />
+          <End Role="Beta" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Beta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beta">
+              <PropertyRef Name="FirstRelationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetaTable_KeyphraseRelationshipTable1">
+          <End Role="KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseRelationship" Multiplicity="1" />
+          <End Role="Beta" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Beta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beta">
+              <PropertyRef Name="SecondRelationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_ClassRelationshipTable_ClassRelationshipTable">
+          <End Role="ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.ClassRelationship" Multiplicity="1" />
+          <End Role="Class_ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Class_ClassRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class_ClassRelationship">
+              <PropertyRef Name="RelationshipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable">
+          <End Role="KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseClass" Multiplicity="1" />
+          <End Role="Class_ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Class_ClassRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class_ClassRelationship">
+              <PropertyRef Name="SuperClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_ClassRelationshipTable_KeyphraseClassTable1">
+          <End Role="KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseClass" Multiplicity="1" />
+          <End Role="Class_ClassRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Class_ClassRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class_ClassRelationship">
+              <PropertyRef Name="SubClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseTable">
+          <End Role="Keyphrase" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyphrase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseClass">
+              <PropertyRef Name="KeyphraseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable">
+          <End Role="Keyphrase" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyphrase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseRelationship">
+              <PropertyRef Name="SourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1">
+          <End Role="Keyphrase" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyphrase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseRelationship">
+              <PropertyRef Name="TargetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable">
+          <End Role="KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseClass" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseClass" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseClass">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable">
+          <End Role="KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseRelationship" Multiplicity="1" />
+          <End Role="Keyphrase_KeyphraseRelationship" Type="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KeyphraseRelationship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyphrase_KeyphraseRelationship">
+              <PropertyRef Name="RelationshipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DTC_DTNN_CKONTOLOGYCreateKGModelStoreContainer" CdmEntityContainer="DTC_DTNN_CKONTOLOGYCreateKGEntities">
+          <EntitySetMapping Name="Alphas">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Alpha">
+              <MappingFragment StoreEntitySet="Alpha">
+                <ScalarProperty Name="FirstKeyphraseId" ColumnName="FirstKeyphraseId" />
+                <ScalarProperty Name="SecondKeyphraseId" ColumnName="SecondKeyphraseId" />
+                <ScalarProperty Name="AlphaValue" ColumnName="AlphaValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Betas">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Beta">
+              <MappingFragment StoreEntitySet="Beta">
+                <ScalarProperty Name="FirstRelationId" ColumnName="FirstRelationId" />
+                <ScalarProperty Name="SecondRelationId" ColumnName="SecondRelationId" />
+                <ScalarProperty Name="RelevanceValue" ColumnName="RelevanceValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Class_ClassRelationship">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Class_ClassRelationship">
+              <MappingFragment StoreEntitySet="Class_ClassRelationship">
+                <ScalarProperty Name="SuperClassId" ColumnName="SuperClassId" />
+                <ScalarProperty Name="SubClassId" ColumnName="SubClassId" />
+                <ScalarProperty Name="RelationshipId" ColumnName="RelationshipId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassRelationships">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.ClassRelationship">
+              <MappingFragment StoreEntitySet="ClassRelationship">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IPWeights">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.IPWeight">
+              <MappingFragment StoreEntitySet="IPWeight">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keyphrases">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase">
+              <MappingFragment StoreEntitySet="Keyphrase">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MonoKeyphrases" ColumnName="MonoKeyphrases" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="FormOrder" ColumnName="FormOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keyphrase_KeyphraseClass">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseClass">
+              <MappingFragment StoreEntitySet="Keyphrase_KeyphraseClass">
+                <ScalarProperty Name="KeyphraseId" ColumnName="KeyphraseId" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keyphrase_KeyphraseRelationship">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Keyphrase_KeyphraseRelationship">
+              <MappingFragment StoreEntitySet="Keyphrase_KeyphraseRelationship">
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="TargetId" ColumnName="TargetId" />
+                <ScalarProperty Name="RelationshipId" ColumnName="RelationshipId" />
+                <ScalarProperty Name="RelValue" ColumnName="RelValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KeyphraseClasses">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseClass">
+              <MappingFragment StoreEntitySet="KeyphraseClass">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KeyphraseGraphs">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseGraph">
+              <MappingFragment StoreEntitySet="KeyphraseGraph">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="KeyphraseGraph1" ColumnName="KeyphraseGraph" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KeyphraseRelationships">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.KeyphraseRelationship">
+              <MappingFragment StoreEntitySet="KeyphraseRelationship">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MinValue" ColumnName="MinValue" />
+                <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LocationWeight" ColumnName="LocationWeight" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="Synonym" ColumnName="Synonym" />
+                <ScalarProperty Name="OrganizationWeight" ColumnName="OrganizationWeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartOfSpeeches">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.PartOfSpeech">
+              <MappingFragment StoreEntitySet="PartOfSpeech">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="IdentityString" ColumnName="IdentityString" />
+                <ScalarProperty Name="IdentitySynonym" ColumnName="IdentitySynonym" />
+                <ScalarProperty Name="PersonWeight" ColumnName="PersonWeight" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phrases">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Phrase">
+              <MappingFragment StoreEntitySet="Phrase">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSDictionaries">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.POSDictionary">
+              <MappingFragment StoreEntitySet="POSDictionary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PartOfSpeechId" ColumnName="PartOfSpeechId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="DTC_DTNN_CKONTOLOGYCreateKGModel.Topic">
+              <MappingFragment StoreEntitySet="Topic">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Keyphrases" ColumnName="Keyphrases" />
+                <ScalarProperty Name="KG" ColumnName="KG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

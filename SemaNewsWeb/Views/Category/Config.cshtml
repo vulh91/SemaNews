@@ -1,0 +1,149 @@
+﻿@model IEnumerable<SemaNewsCore.Models.GField>
+
+@{
+    ViewBag.Title = "Danh sách các lĩnh vực phân loại tin bài";
+
+    var rows = Model.GroupBy(t => Model.ToList().IndexOf(t) / 3).ToList();
+}
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+        <p>
+            @Html.ActionLink("Thêm lĩnh vực mới", "Create", "Category", routeValues: null, htmlAttributes: new { @class = "btn btn-lg btn-primary" })
+        </p>
+        @using (Html.BeginForm("Config", "Category", FormMethod.Get, new { @class = "", @role = "form" }))
+        {
+            <div class="input-group col-md-9">
+                <label class="sr-only" for="searchString">Search String</label>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Tìm kiếm lĩnh vực, chuyên mục", @value= @ViewBag.searchString })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"><span class="fa fa-search"></span></button>
+                </span>
+            </div>
+        }
+    </div>
+    <div>
+        <div class="col-md-9">
+            @foreach (var row in rows)
+            {
+                <div class="row">
+                    @foreach (var item in row)
+                    {
+                        <div class="col-md-4 portfolio-item">
+                            <div data-id="@item.Id" class="panel panel-primary  mirror-background category-panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title text-center">@item.Name</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-unstyled">
+                                        <li>Số lượng trang lĩnh vực: @item.Fields.Count</li>
+                                        <li>Số lượng quan hệ: @(item.GGRelationInstancesIn.Count + item.GGRelationInstancesOut.Count)</li>
+                                        <li>Số lượng tin bài: @item.Articles.Count</li>
+                                    </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-primary" href="@Url.Action("Edit", new { id = @item.Id })"><span class="fa fa-cog"></span></a>
+                                        <button class="btn btn-sm btn-danger btn-del-category" data-id="@item.Id" data-name="@item.Name"><span class="fa fa-trash-o"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-md-3">
+            <div id="tree-category">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="modal-delete-category" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="myModalLabel">Modal title</h2>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger btn-delete">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $('#tree-category').treeview({
+            data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.CategoryTreeView)),
+            backColor: 'rgba(78, 93, 108, 0.8)',
+            onhoverColor : '#df691a',
+            showTags : true,
+            enableLinks: true,
+        });
+        $(document).ready(function () {
+            $('button.btn-del-category').click(function () {
+                showModalDelCategory($(this).attr('data-id'), $(this).attr('data-name'));
+            });
+
+            function showModalDelCategory(id, name) {
+                var modalTitle = 'Xóa lĩnh vực ' + name;
+                var modalBody = '<p class="lead">Bạn thực sự muốn xóa lĩnh vực này ? </p>';
+                modalBody += '<div class="alert alert-danger">';
+                modalBody += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'
+                modalBody += '<h4>CẢNH BÁO</h4>';
+                modalBody += 'Bạn đang yêu cầu xóa lĩnh vực phân loại <strong>' + name + '</strong>.';
+                modalBody += '<p>Việc xóa lĩnh vực phân loại này sẽ ảnh hưởng tới các trang lĩnh vực, tin bài của các trang báo điện tử liên quan. Một khi bạn đồng ý xóa, việc khôi phục là không thể !</p>'
+                modalBody += '</div>';
+
+                $('#modal-delete-category #myModalLabel').text(modalTitle);
+                $('#modal-delete-category .modal-body').html(modalBody);
+                $('#modal-delete-category .btn-delete').attr('data-id', id);
+                $('#modal-delete-category').modal('show');
+
+            }
+
+            $('#modal-delete-category .btn-delete').click(function () {
+                var cateogyId = $('#modal-delete-category .btn-delete').attr('data-id');
+                if (cateogyId == null) {
+                    $.growl('Không hợp lệ !');
+                    retur;
+                }
+                deleteCategory(cateogyId);
+                $('#modal-delete-category').modal('hide');
+            });
+
+            function deleteCategory(id) {
+                $.ajax({
+                    url: '@Url.Action("AjaxDelete")',
+                    data: { id: id },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.OK == true) {
+                            notifyMessage(data.Message, "success");
+                            removeCategoryPanel(id)
+                        }
+                        else {
+                            notifyMessage(data.Message, "danger");
+                        }
+                    },
+                    error: function (data) {
+                        notifyMessage(data.Message, "danger");
+                    }
+                });
+            }
+
+            function removeCategoryPanel(id) {
+                $('div.category-panel[data-id=' + id + ']').remove();
+            }
+        });
+
+    </script>
+}

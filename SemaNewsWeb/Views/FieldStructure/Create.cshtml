@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+@Html.Raw(ViewBag.htmlDocumentStr)
+
+
+<!-- STRUCT MANAGE AREA -->
+
+<!-- HEAD -->
+<link rel="stylesheet" href="~/Content/DefineStruct.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="~/Scripts/Custom/DefineStruct.js"></script>
+<!-- END HEAD -->
+
+<!-- BODY -->
+
+<!-- Define field popup -->
+<div id="WMDefineForm" class="WMDefineForm CommonCss">
+    <div class="modal-header"> 
+        <button aria-hidden="true" data-dismiss="modal" class="close" onclick="CloseDefineForm()" type="button">×</button>
+        <h3>Định nghĩa cấu trúc trang lĩnh vực</h3>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" id="fieldId" value="@ViewBag.fieldId" />
+        <table id="containerHE-List">
+            <tr class="info">
+                <td>Địa chỉ Xpath</td>
+                <td>Loại</td>
+                <td></td>
+            </tr>
+            <tr id="HE-item-template" class="hidden">
+                <td><input class="he-list full-width" type="text" /></td>
+                <td>HTML Element danh sách tin bài</td>
+                <td><a class="delete-we-item btn" href="javascript:void(0)">Xóa</a></td>
+            </tr>
+             <tr class="pe-ele-area">
+                <td><input id="pe-ele" class="full-width" type="text" /></td>
+                <td>HTML Element phân trang</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+         <input data-url="@Url.Action("Create", "FieldStructure")" type="button" id ="WMSubmit" class="btn" value="Lưu" style="text-align:center" />
+    </div>
+</div>
+<!-- End Define field popup -->
+
+
+<div id="WMController" class="WMController CommonCss">
+    <div id="WMCreateForm">
+   		<input type="button" id="WMbtnHoverMode" class="btn" onclick="ActiveHover()" value="Hover"/>
+   		<input type="text" id="WMtxtXpath" class="btn"  value="xpath" />
+        <select id="WMWeType"> <option value="LIST">Danh sách tin bài</option> <option value="PAGINATION">Phân trang</option> </select>
+        <input type="button" id="WMbtnParentEle" class="btn" onclick="ParentSelect()" value="Element cha"/>
+        <input type="button" id="WMbtnChildEle" class="btn" onclick="FirstChildSelect()" value="Element con"/>
+        <input type="button" id="WMbtnPrevSibling" class="btn" onclick="PreviousSiblingSelect()" value="Đồng cấp trước"/>
+        <input type="button" id="WMbtnNextSibling" class="btn" onclick="NextSiblingSelect()" value="Đồng cấp sau"/>
+
+        <br />
+             
+        <input type="button" id="WMbtnSelect" class="btn" value="Thêm Element"/>
+        <input type="button" id="WMbtnDefineForm" class="btn" onclick="ActiveDefineForm()" value="Bảng định nghĩa"/>
+            <a class="btn btn-inverse go-back-btn" href="#" style="float:right">Quay lại</a>
+        <div id="WMConfirmInputValue" hidden="true" style="color:#FFF">Đã lưu vào "bảng định nghĩa" !!!</div>
+
+    </div>         
+</div>
+

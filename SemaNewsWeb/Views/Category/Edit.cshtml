@@ -1,0 +1,51 @@
+﻿@model SemaNewsWeb.ViewModels.CategoryVM
+@{
+    ViewBag.Title = "Lĩnh vực " + Model.GField.Name;
+    var countRelations = Model.GGRelationsIn.Count + Model.GGRelationsOut.Count;
+    var countFields = Model.Fields.Count;
+}
+
+<div id="main-container" class="container">
+    <div class="col-sm-3 buffer-top-md">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="@Url.Action("Edit","Category",new{id=@Model.GField.Id})">Thông tin cơ bản</a></li>
+            <li><a href="@Url.Action("ManageRelations", "Category", new { id = @Model.GField.Id })">Các quan hệ <span class="badge pull-right">@countRelations</span></a></li>
+            <li><a href="@Url.Action("ManageFields","Category", new{id=@Model.GField.Id})">Các trang lĩnh vực <span class="badge pull-right">@countFields</span></a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9">
+        <div class="page-header">
+            <h1>@ViewBag.Title</h1>
+        </div>
+        @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+        
+            @Html.HiddenFor(model => model.GField.Id)
+            <div class="form-group">
+                @Html.LabelFor(model => model.GField.Name, "Tên lĩnh vực", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.GField.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GField.Description, "Mô tả", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.GField.Description, new { @class = "form-control", @rows = "5" })
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <input type="submit" class="btn btn-primary" value="Lưu thay đổi" />
+                    <a href="@Url.Action("Config")" class="btn btn-default">Quay lại</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+}

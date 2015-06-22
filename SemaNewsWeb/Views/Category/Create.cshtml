@@ -1,0 +1,38 @@
+﻿@model SemaNewsCore.Models.GField
+@{
+    ViewBag.Title = "Định nghĩa lĩnh vực phân loại mới";
+}
+<div class="container" id="main-container">
+
+    <div class="page-header">
+        <h1>Định nghĩa lĩnh vực phân loại mới</h1>
+    </div>
+    @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, "Tên lĩnh vực",  new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description,"Mô tả", new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "5" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <input type="submit" class="btn btn-primary" value="Đồng ý tạo" />
+                <a href="@Url.Action("Config")" class="btn btn-default">Quay lại</a>
+            </div>
+        </div>
+    }
+</div>

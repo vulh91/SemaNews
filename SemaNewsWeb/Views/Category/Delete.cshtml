@@ -1,0 +1,26 @@
+﻿@model SemaNewsCore.Models.GField
+
+@{
+    ViewBag.Title = "Xóa lĩnh vực " + Model.Name;
+}
+
+<div class="container" id="main-container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    @using (Html.BeginForm("Delete", "Category", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="">
+            <p class="">
+                Lĩnh vực <strong>@Model.Name</strong> này hiện có <strong>@ViewBag.TotalFields trang lĩnh vực</strong> sử dụng và chứa <strong>@ViewBag.TotalArticles tin bài</strong> thu thập được.
+        Một khi bạn click nút <strong>Đồng ý xóa</strong>, toàn bộ dữ liệu liên quan đến lĩnh vưc phân loại này sẽ bị xóa bỏ.
+            </p>
+            <p class="lead">Bạn thực sự muốn xóa lĩnh vực phân loại này ?</p>
+
+        </div>
+        <input class="btn btn-danger" type="submit" value="Đồng ý xóa" />
+        <a class="btn btn-default" href="@Url.Action("Config")">Quay lại</a>
+    }
+
+</div>

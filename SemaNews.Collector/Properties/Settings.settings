@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SemaNews.Collector.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CatgName_LDVL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lao động việc làm</Value>
+    </Setting>
+    <Setting Name="CatgName_DTCDTNN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Đầu tư công - Đầu tư nước ngoài</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

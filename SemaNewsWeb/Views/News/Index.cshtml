@@ -1,0 +1,45 @@
+﻿@model ICollection<SemaNewsCore.Models.GField>
+@{
+    ViewBag.Title = "Tin tổng hợp";
+}
+
+<div id="main-container" class="container">
+    @foreach (var category in Model)
+    {
+        if (category.Articles.Count != 0)
+        {
+        <div class="bs-docs-section row">
+            <h1 class="page-header"><a class="" href="@Url.Action("Category", new { @id = @category.Id })">@category.Name</a></h1>
+            <div class="category-content">
+                @foreach (var article in category.Articles.OrderByDescending(m=>m.ReleasedDate).Take(3))
+                {
+                    string img = article.GetImageLink();
+                    if (string.IsNullOrEmpty(img))
+                    {
+                        img = "/Images/news-icon.png";
+                    }
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <img src="@img" style="max-width:220px"/>
+                        </div>
+                        <h3 class="article-title text-center"><a href="@Url.Action("Index", "Article", new { @id = @article.Id })">@article.Title</a></h3>
+                        <p><strong>@article.ReleasedDate.Value.ToString("dd-MM-yyyy") - @article.Newspaper.Name</strong></p>
+                        <p>@article.Abstract</p>
+                    </div>
+                }
+                <div class="col-md-3">
+                    <h3>Tin bài đã đăng</h3>
+                    <ul class="list-unstyled">
+                        @foreach (var article in category.Articles.Skip(3).Take(5))
+                        {
+                            <li><a href="@Url.Action("Index", "Article", new { id = article.Id })"><strong>@article.Newspaper.Name</strong>: @article.Title</a></li>
+                        }
+                    </ul>
+                    <a class="" href="@Url.Action("Category", new { @id = @category.Id })">XEM THÊM</a>
+                </div>
+            </div>
+        </div>
+            
+        }
+    }
+</div>

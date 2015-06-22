@@ -1,0 +1,100 @@
+﻿@model ICollection<SemaNewsCore.Models.SavedArticle>
+@{
+    ViewBag.Title = "Query";
+}
+
+<div id="main-container" class="container">
+    <div class="container col-md-9">
+        <div class="panel-group" id="accordion">
+            <div class="">
+                <div class="panel-body">
+                    @foreach (var item in Model)
+                    {
+                        <div class="panel panel-article" data-id="@item.Id">
+                            <div class="panel-body">
+
+                                <div>
+                                    <button type="button" class="close btn-remove-article" data-id="@item.Id" data-tooggle="tooltip" data-placement="top" title="Bỏ tin bài"><span aria-hidden="true">&times;</span></button>
+                                    <h4><a class="success-link" href="@Url.Action("Index", "Article", new { @id = item.Article.Id })">@item.Article.Title</a></h4>
+                                </div>
+                                <p>
+                                    @(item.Article.ReleasedDate.HasValue ? @item.Article.ReleasedDate.Value.ToString("HH:mm dd/MM/yyyy") : "")
+                                    @(string.IsNullOrEmpty(@item.Article.Author) ? "" : ("| " + @item.Article.Author))
+                                </p>
+                                <div>
+                                    <div class="col-md-1">
+                                        @if (string.IsNullOrEmpty(item.Article.GetImageLink()) == false)
+                                        {
+                                            <img src="@item.Article.GetImageLink()" style="width:60px;height:60px;"/>
+                                        }
+                                    </div>
+                                    <div class="col-md-11">
+                                        <p>@Html.Raw(@item.Article.Abstract)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="del-style-switcher mirror-background" style="right: -250px;">
+    <div class="del-switcher-toggle toggle-hide"></div>
+    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "form" }))
+    {
+        <input id="query" name="query" type="hidden" value="@ViewBag.Query" />
+        <input id="isSemantic" name="isSemantic" type="hidden" value=@ViewBag.IsSemantic"" />
+        <div class="form-group">
+            <label class="control-label">Hiển thị kết quả theo</label>
+            <div class="">
+                <select id="display" name="display" class="form-control">
+                    <option value="Default">Mặc định</option>
+                    <option value="ByNewspapers">Trang báo điện tử</option>
+                    <option value="ByCategories">Lĩnh vực phân loại</option>
+                    <option value="ByTopics">Chủ đề</option>
+                    <option value="ByGeography">Báo trong tỉnh, ngoài tỉnh</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="">
+                <button type="submit" class="btn btn-sm btn-primary">Đồng ý</button>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.btn-remove-article').click(function () {
+                var articleId = $(this).attr('data-id');
+
+                $.ajax({
+                    url: '@Url.Action("DeleteArticle","UserQuery")',
+                    type: 'POST',
+                    data: { id: articleId },
+                    success: function (data) {
+                        if (data.OK) {
+                            notifyMessage(data.Message, 'success');
+                            var panelArticle = $('.panel-article[data-id=' + articleId + ']').remove();
+                        }
+                        else {
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error: function () {
+                        notifyMessage('LỖI! Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu');
+                    }
+                });
+            });
+        });
+    </script>
+}

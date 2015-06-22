@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[GField]
+(
+	[Id] INT IDENTITY NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(MAX) NULL,
+	[Description] NVARCHAR(MAX),
+)

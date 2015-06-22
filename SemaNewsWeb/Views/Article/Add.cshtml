@@ -1,0 +1,118 @@
+﻿@model SemaNewsCore.Models.Article
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h3>Thêm tin bài</h3>
+    </div>
+    @using (Html.BeginForm("Add", "Article", FormMethod.Post, new { @class = "form form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, "TIÊU ĐỀ", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, "Địa chỉ", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Url)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReleasedDate, "Thời gian đăng tải", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.ReleasedDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ReleasedDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CollectedDate, "Thời gian thu thập", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.CollectedDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CollectedDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Abstract, "Tóm tắt", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.Abstract, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Abstract)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tags, "Các từ khóa", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.Tags, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tags)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, "Nội dung", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Content)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsIndexed, "Đã được index?", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.CheckBoxFor(model => model.IsIndexed, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsIndexed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FieldId, "FieldId", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.FieldId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FieldId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GFieldId, "GFieldId", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.GFieldId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GFieldId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NewspaperId, "NewspaperId", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.NewspaperId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NewspaperId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input class="btn btn-primary" type="submit" value="Tạo" />
+            </div>
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

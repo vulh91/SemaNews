@@ -1,0 +1,38 @@
+﻿@model SemaNewsCore.Models.Newspaper
+@{
+    ViewBag.Title = "Xóa trang báo điện tử";
+}
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    @using (Html.BeginForm("Delete", "Newspaper", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(Model => Model.Id)
+
+        <div class="alert alert-danger">
+            <p class="lead">
+                Bạn có thực sự muốn xóa trang báo điện tử <strong>@Html.DisplayFor(model => model.Name)</strong> và tất cả nội dung liên quan của nó ?
+            </p>
+            <p>
+                  Một khi bạn ấn nút Đồng ý xóa, bạn không thể lấy lại được những thông tin liên quan tới trang báo điện tử này: thông tin cơ bản, các trang lĩnh vực, các cấu trúc đã định nghĩa, các trang tin bài đã thu thập được, ...
+            </p>
+        </div>
+    
+        <div class="form-group">
+            <div class="col-sm-12">
+                <a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-arrow-left"></span></a>
+                <button class="btn btn-danger" type="submit"><span class="fa fa-trash-o"></span> Đồng ý xóa </button>
+            </div>
+        </div>
+    }
+</div>
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,14 @@
+﻿@model SemaNewsCore.Models.ArticleWebElement
+<tr>
+    <td>@ViewBag.label</td>
+    <td>
+        @Html.TextBoxFor(x => x.Address, new { @class = "full-width" })
+        @Html.HiddenFor(x => x.Group)
+        @Html.HiddenFor(x => x.WebElementTypeId)
+        @Html.HiddenFor(x => x.Group)
+        @Html.HiddenFor(x => x.NewspaperId)
+    </td>
+    <td>
+        <input type="button" class="btn we-select-btn" onclick="SelectElement" value="Chọn Element" />
+    </td>
+</tr>

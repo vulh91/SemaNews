@@ -1,0 +1,678 @@
+﻿@model SemaNewsWeb.ViewModels.CollectorConfigVM
+@{
+    ViewBag.Title = "Cấu hình bộ thu thập tin tức";
+}
+
+<div id="main-container" class="container">
+    <div class="row">
+        <div class="page-header">
+            <h1>@ViewBag.Title</h1>
+            <a href="@Url.Action("Index")" class="btn btn-lg btn-primary"><span class="fa fa-arrow-left"></span> Quay lại</a>
+            <button id="btn-general-config" class="btn btn-lg btn-primary"><span class="fa fa-cog"></span></button>
+        </div>
+    </div>
+
+    <div id="panel-collector-info" class="row panel-collapse collapse">
+        <div class="progress progress-striped active">
+            <div id="collector-progress" class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                <span class="sr-only">85% Complete</span>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="row">
+                <label class="col-md-3 control-label">Thời gian bắt đầu</label>
+                <div class="col-md-9">
+                    <label class="text text-info control-label" id="info-collector-starttime">Start Time</label>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 control-label">Thời gian kết thúc</label>
+                <div class="col-md-9">
+                    <label class="text text-info control-label" id="info-collector-endtime"></label>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 control-label">Đã thu thập được</label>
+                <div class="col-md-9">
+                    <label class="text text-info control-label" id="info-article-count"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-3 control-label">Đang xử lí</label>
+                <div class="col-md-9">
+                    <p class="text text-info" id="info-article-url"></p>
+                    <p class="text text-info" id="info-article-title"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="collectingMode" class="row">
+        <h1>Chế độ thu thập</h1>
+        <div>
+            <div id="collectingMode-@SemaNewsCore.Configurations.CollectingMode.Manual.ToString()" class="col-sm-12 col-md-6 collecting-approach">
+                <div class="tile">
+                    <div class="icon-wrapper icon-wrapper-radius">
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="tile-content">
+                        <h3>Thu thập khi có yêu cầu</h3>
+                        <p>
+                            Chỉ thực hiện thu thập khi được kích hoạt trực tiếp bởi người sử dụng
+                        </p>
+                        <p>
+                            <button id="btn-start-collect" disabled="disabled" class="btn btn-primary btn-sm btn-control"><span class="fa fa-play"></span></button>
+                            <button id="btn-stop-collect" disabled="disabled" class="btn btn-primary btn-sm btn-control"><span class="fa fa-stop"></span></button>
+                        </p>
+
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-activate" data-value="@SemaNewsCore.Configurations.CollectingMode.Manual.ToString()">Kích hoạt</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="collectingMode-@SemaNewsCore.Configurations.CollectingMode.Scheduled.ToString()" class="col-sm-12 col-md-6 collecting-approach">
+                <div class="tile">
+                    <div class="icon-wrapper icon-wrapper-radius">
+                        <i class="fa fa-clock-o fa-5x"></i>
+                    </div>
+                    <div class="tile-content">
+                        <h3>Thu thập theo lịch hẹn trước</h3>
+                        <p>
+                            Tự động kích hoạt bộ thu thập theo lịch trình hẹn trước bởi người sử dụng
+                        </p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-activate" data-value="@SemaNewsCore.Configurations.CollectingMode.Scheduled.ToString()">Kích hoạt</button>
+                        <button class="btn btn-primary btn-config"><span class="fa fa-cog"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="collectingSchedule" class="row panel-collapse collapse">
+        <h1>Lịch thu thập <button class="btn btn-default btn-collapse"><span class="fa fa-chevron-up"></span></button></h1>
+
+        <div id="approach-@SemaNewsCore.Configurations.CollectingApproach.Auto.ToString()" class="col-sm-12 col-md-3 collecting-approach">
+            <div class="tile">
+                <div class="icon-wrapper icon-wrapper-radius">
+                    <i class="fa fa-coffee fa-4x"></i>
+                </div>
+                <div class="tile-content">
+                    <h3>Thu thập tự động</h3>
+                    <p>
+                        Hệ thống tự động lựa chọn chiến lược thu thập. Bạn không thể tùy biến cho chế độ này
+                    </p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-activate" data-value="@SemaNewsCore.Configurations.CollectingApproach.Auto.ToString()">Kích hoạt</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="approach-@SemaNewsCore.Configurations.CollectingApproach.PointOfTimes.ToString()" class="col-sm-12 col-md-3 collecting-approach">
+            <div class="tile">
+                <div class="icon-wrapper icon-wrapper-radius">
+                    <i class="fa fa-calendar-o fa-4x"></i>
+                </div>
+                <div class="tile-content">
+                    <h3>Thu thập vào các thời điểm cố định trong ngày</h3>
+                    <p>
+                        Chọc các mốc thời gian trong ngày mà bạn muốn kích hoạt bộ thu thập.
+                    </p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-activate" data-value="@SemaNewsCore.Configurations.CollectingApproach.PointOfTimes.ToString()">Kích hoạt</button>
+                    <button class="btn btn-primary btn-config" data-value="@SemaNewsCore.Configurations.CollectingApproach.PointOfTimes.ToString()"><span class="fa fa-cog"></span></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="approach-@SemaNewsCore.Configurations.CollectingApproach.Continuous.ToString()" class="col-sm-12 col-md-3 collecting-approach">
+            <div class="tile">
+                <div class="icon-wrapper icon-wrapper-radius">
+                    <i class="fa fa-circle-o fa-4x"></i>
+                </div>
+                <div class="tile-content">
+                    <h3>Thu thập liên tục</h3>
+                    <p>
+                        Điều chỉnh thời gian giản cách giữa hai lần thu thập liên tiếp.
+                    </p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-activate" data-value="@SemaNewsCore.Configurations.CollectingApproach.Continuous.ToString()">Kích hoạt</button>
+                    <button class="btn btn-primary btn-config" data-value="@SemaNewsCore.Configurations.CollectingApproach.Continuous.ToString()"><span class="fa fa-cog"></span></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="approach-@SemaNewsCore.Configurations.CollectingApproach.Interval.ToString()" class="col-sm-12 col-md-3 collecting-approach">
+            <div class="tile">
+                <div class="icon-wrapper icon-wrapper-radius">
+                    <i class="fa fa-clock-o fa-4x"></i>
+                </div>
+                <div class="tile-content">
+                    <h3>Thu thập sau mỗi khoảng thời gian</h3>
+                    <p>
+                        Điều chỉnh tần suất thu thập.
+                    </p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-activate" data-value="@SemaNewsCore.Configurations.CollectingApproach.Interval.ToString()">Kích hoạt</button>
+                    <button class="btn btn-primary btn-config" data-value="@SemaNewsCore.Configurations.CollectingApproach.Interval.ToString()"><span class="fa fa-cog"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-config-Interval" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Thay đổi tần suất thu thập</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CollectingInterval, "Tần suất thu thập", new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.CollectingInterval, new { @class = "form-control", @placeholder = "hh:mm:ss" })
+                                <span class="input-group-addon">hh:mm:ss</span>
+
+                            </div>
+                            <p class="help-block">
+                                Hệ thống tự động kích hoạt bộ thu thập sau mỗi khoảng thời gian này
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary btn-save">Lưu thay đổi</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="modal-config-Continuous" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Thay đổi thời gian nghĩ giữa hai lần thu thập</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CollectingDelay, "Thời gian nghĩ", new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.CollectingDelay, new { @class = "form-control", @placeholder = "hh:mm:ss" })
+                                <span class="input-group-addon">hh:mm:ss</span>
+
+                            </div>
+                            <p class="help-block">
+                                Thời gian nghĩ giữa hai lần thu thập liên tiếp.
+                                Sau khi lần thu thập trước kết thúc, hệ thống sẽ cần phải đợi một khoảng thời gian để kích hoạt bộ thu thập trở lại
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary btn-save">Lưu thay đổi</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="modal-config-PointOfTimes" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Thay đổi các thời điểm thu thập trong ngày</h3>
+            </div>
+            <div class="modal-body">
+                <form id="form-add-time">
+                    <div class="col-sm-5 input-group">
+                        <input id="input-add-time" type="time" min="00:00:00" max="23:59:59" name="add-time" class="form-control" />
+                        <span class="input-group-btn">
+                            <button id="btn-add-time" type="button" class="btn btn-primary btn-add-time"><span class="fa fa-plus"></span></button>
+                        </span>
+                    </div>
+                </form>
+
+                <table id="table-time-list" class="table table-hover">
+                    <tr>
+                        <th class="col-sm-10">Thời gian</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var time in Model.CollectingTimes)
+                    {
+                        <tr>
+                            <td>
+                                @time.ToLongTimeString()
+                            </td>
+                            <td>
+                                <button data-value="@time" class="btn btn-danger btn-delete-time"><span class="fa fa-trash-o"></span></button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <p class="help-block">Hệ thống tự động kích hoạt bộ thu thập vào các điểm thời gian trên</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary btn-save">Lưu thay đổi</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="modal-general-config" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">CẤU HÌNH CHUNG</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div id="panel-NumberOfPageToCrawl" class="form-group collapse in">
+                        <label class="col-md-3 control-label">Số lượng phân trang tối đa</label>
+                        <div class="col-md-9">
+                            <input class="form-control" name="NumberOfPageToCrawl" value="@Model.NumberOfPageToCrawl" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-ok">Lưu thay đổi</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts
+{
+    <script>
+        var numberOfPageToCrawl = '@Model.NumberOfPageToCrawl';
+
+        $('#btn-general-config').click(function () {
+            $('#modal-general-config').modal('toggle');
+        });
+
+        $('#modal-general-config .btn-ok').click(function () {
+
+            numberOfPageToCrawl = getNumberOfPageToCrawl();
+
+            if (numberOfPageToCrawl < 1 || numberOfPageToCrawl > 100) {
+                alert("Lỗi! Số phân trang thu thập cần lớn hơn 0 và nhỏ hơn 100");
+                return;
+            }
+
+            var result = true;
+
+            $.ajax({
+                url: '@Url.Action("AjaxEditNumberOfPageToCrawl", "Collector")',
+                type: 'POST',
+                data: { value: numberOfPageToCrawl },
+                success: function (data) {
+                },
+                error: function () {
+                    result = false;
+                }
+            });
+
+            $('#modal-general-config').modal('hide');
+            if (result) {
+                notifyMessage('Lưu thay đổi cấu hình thành công', 'success');
+            }
+            else {
+                notifyMessage('Đã có lỗi xảy ra! Lưu thay đổi cấu hình thất bại', 'danger');
+            }
+        });
+
+        function getNumberOfPageToCrawl() {
+            return $('#modal-general-config [name="NumberOfPageToCrawl"]').val();
+        }
+    </script>
+    <script>
+        var collectingApproach;
+        var collectingMode;
+        var timesList;
+        $(document).ready(function () {
+            //Initialize Data and original appreance
+            collectingApproach = '@Model.CollectingApproach.ToString()'
+            collectingMode = '@Model.CollectingMode.ToString()'
+            timesList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.CollectingTimes.Select(m => m.ToString("HH:mm:ss"))))
+
+            updateTableTimeList(timesList);
+
+            //Mark activated collecting approach
+            $('#approach-' + collectingApproach + ' .tile').addClass('tile-active');
+            $('#approach-' + collectingApproach + ' .btn-activate').attr('disabled', 'disabled');
+
+            //Mark activated collecting mode
+            $('#collectingMode-' + collectingMode + ' .tile').addClass('tile-active');
+            $('#collectingMode-' + collectingMode + ' .btn-activate').attr('disabled', 'disabled');
+            $('#collectingMode-' + collectingMode + ' .btn-control').removeAttr('disabled');
+            //-------------------------------------
+
+            //Activate new collecting mode
+            $('#collectingMode .btn-activate').click(function () {
+                var targetMode = $(this).attr('data-value');
+                changeCollectingMode(targetMode);
+            });
+
+            //Activate new collecting approach
+            $('#collectingSchedule .btn-activate').click(function () {
+                var targetApproach = $(this).attr('data-value');
+                changeApproach(targetApproach);
+            });
+
+            $('#collectingMode-@SemaNewsCore.Configurations.CollectingMode.Scheduled .btn-config').click(function () {
+                var sectionConfig = $('#collectingSchedule');
+                sectionConfig.collapse('show');
+
+                var offset = -20; //Offset of 20px
+                $('html, body').animate({
+                    scrollTop: $("#collectingSchedule").offset().top + offset
+                }, 500);
+            });
+
+            $('#collectingSchedule .btn-collapse').click(function () {
+                $('#collectingSchedule').collapse('hide');
+
+                var offset = -20; //Offset of 20px
+                $('html, body').animate({ scrollTop: 0 }, 500);
+            });
+
+            //Show config modal foreach btn-config
+            $('.btn-config').click(function () {
+                $('#modal-change-interval').modal('show');
+            });
+
+            //SECTION: handling config form for PointOfTime Apporach
+
+            //On button #btn-add-time click
+            $('#form-add-time #btn-add-time').click(function () {
+                var newTimeValue = $('#form-add-time #input-add-time').val() + ":00";
+                if (newTimeValue == ":00") {
+                    notifyMessage('Không hợp lệ !', 'danger');
+                    return;
+                }
+                if ($.inArray(newTimeValue, timesList) > -1) {
+                    notifyMessage('Thời điểm thu thập này đã được chọn. Hãy chọn thời điểm khác !', 'danger');
+                }
+                else {
+                    timesList.push(newTimeValue);
+                    notifyMessage('Thêm thành công thời điểm thu thập mới !', 'success');
+                    updateTableTimeList(timesList);
+                }
+
+            });
+
+            //Update table Time List
+            //Binding click event for this new button
+            $('#table-time-list').on('click', '.btn-delete-time', function () {
+                var timeValue = $(this).attr('data-value');
+                timesList.remove(timeValue);
+                updateTableTimeList(timesList);
+                notifyMessage('Một thời điểm thu thập đã được hủy bỏ !', 'success');
+            });
+
+            function updateTableTimeList(list) {
+                list.sort();
+                var table = $('#table-time-list');
+                table.find('tr:gt(0)').remove();
+                for (var i = 0 ; i < list.length; i++) {
+                    table.append('<tr><td>' + list[i] + '</td><td><button data-value="' + list[i] + '" class="btn btn-danger btn-delete-time"><span class="fa fa-trash-o"></span></button></td></tr>');
+                }
+            }
+
+            //-----------------------------------------------
+            //Send an ajax request to change collecting mode
+            function changeCollectingMode(mode) {
+                $.ajax({
+                    url: '@Url.Action("AjaxChangeMode")',
+                    type: 'POST',
+                    data: { collectingMode: mode },
+                    success: function (data) {
+                        if (data.OK == true) {
+                            notifyMessage(data.Message, 'success');
+
+                            $('#collectingMode-' + collectingMode + ' .tile').removeClass('tile-active');
+                            $('#collectingMode-' + collectingMode + ' .btn-activate').removeAttr('disabled');
+                            $('#collectingMode-' + collectingMode + ' .btn-control').attr('disabled', 'disabled');
+
+                            collectingMode = mode;
+                            $('#collectingMode-' + collectingMode + ' .tile').addClass('tile-active');
+                            $('#collectingMode-' + collectingMode + ' .btn-activate').attr('disabled', 'disabled');
+                            $('#collectingMode-' + collectingMode + ' .btn-control').removeAttr('disabled');
+                        }
+                        else {
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error: function () {
+                        notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                    }
+                });
+            }
+
+            //Send an ajax request to change collecting approach
+            function changeApproach(approach) {
+                $.ajax({
+                    url: '@Url.Action("AjaxChangeApproach")',
+                    type: 'POST',
+                    data: { approach: approach },
+                    success: function (data) {
+                        if (data.OK == true) {
+                            $('#approach-' + collectingApproach + ' .tile').removeClass('tile-active');
+                            $('#approach-' + collectingApproach + ' .btn-activate').removeAttr('disabled');
+
+                            collectingApproach = approach;
+                            $('#approach-' + collectingApproach + ' .tile').addClass('tile-active');
+                            $('#approach-' + collectingApproach + ' .btn-activate').attr('disabled', 'disabled');
+
+                            notifyMessage(data.Message, 'success');
+                        }
+                        else {
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    fail: function () {
+                        notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                    }
+                });
+            }
+        });
+
+        //Show configuration forms
+        $('.btn-config').click(function () {
+            var btnValue = $(this).attr('data-value');
+
+            $('#modal-config-' + btnValue).modal('show');
+        });
+
+        //Handling submiting modals
+
+        $('#modal-config-Interval .btn-save').click(function () {
+            var intervalValue = $('#modal-config-Interval input[name="CollectingInterval"]').val();
+            //validate format?
+
+            $.ajax({
+                url: '@Url.Action("AjaxEditCollectingInterval")',
+                type: 'POST',
+                data: { 'time': intervalValue },
+                success: function (data) {
+                    if (data.OK == true) {
+                        notifyMessage(data.Message, 'success');
+                    }
+                    else {
+                        notifyMessage(data.Message, 'danger');
+                    }
+                },
+                faile: function () {
+                    notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                }
+            });
+        });
+
+        $('#modal-config-Continuous .btn-save').click(function () {
+            var delayValue = $('#modal-config-Continuous input[name="CollectingDelay"]').val();
+
+            $.ajax({
+                url: '@Url.Action("AjaxEditCollectingDelay")',
+                type: 'POST',
+                data: { 'time': delayValue },
+                success: function (data) {
+                    if (data.OK == true) {
+                        notifyMessage(data.Message, 'success');
+                    }
+                    else {
+                        notifyMessage(data.Message, 'danger');
+                    }
+                },
+                faile: function () {
+                    notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                }
+
+            });
+
+        });
+
+        $('#modal-config-PointOfTimes .btn-save').click(function () {
+            $.ajax({
+                url: '@Url.Action("AjaxEditCollectingTimes")',
+                type: 'POST',
+
+                data: { 'time': JSON.stringify(timesList) },
+                success: function (data) {
+                    if (data.OK == true) {
+                        notifyMessage(data.Message, 'success');
+                    }
+                    else {
+                        notifyMessage(data.Message, 'danger');
+                    }
+                },
+                faile: function () {
+                    notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                }
+            });
+        });
+
+        //Helper functions
+        Array.prototype.remove = function () {
+            var what, a = arguments, L = a.length, ax;
+            while (L && this.length) {
+                what = a[--L];
+                while ((ax = this.indexOf(what)) != -1) {
+                    this.splice(ax, 1);
+                }
+            }
+            return this;
+        }
+    </script>
+
+    <script>
+        var collectorInfo;
+        $.getJSON('/api/CollectorManagement/UpdateInfo').done(function (data) {
+            collectorInfo = data;
+        });
+        $('#panel-collector-info').collapse('hide');
+        function updateCollectorInfo() {
+            try {
+                $('#panel-collector-info').collapse('show');
+
+                var progress = collectorInfo.Progress;
+                var engineStatus = collectorInfo.Status;
+                var startTime = collectorInfo.StartTime;
+                var endTime = collectorInfo.EndTime;
+                var articleCount = collectorInfo.ArticlesCount;
+                var recentCollectedArticle = collectorInfo.RecentCollectedArticle;
+
+                $('#collector-progress').attr('aria-valuenow', progress);
+                $('#collector-progress').attr('style', 'width: ' + progress + '%');
+
+                $('#info-collector-starttime').text(startTime);
+                $('#info-collector-endtime').text(endTime);
+                $('#info-article-count').text(articleCount);
+                $('#info-article-title').text(recentCollectedArticle.Title);
+                $('#info-article-url').text(recentCollectedArticle.Url);
+            }
+            catch (err) {
+            }
+        }
+
+        function clearCollectorInfo() {
+            $('#panel-collector-info').collapse('hide');
+        }
+
+        function requestCollectNews() {
+            $.post('/api/CollectorManagement/CollectNews').done(function (data) {
+                notifyMessage(data.MessageContent, data.MessageType);
+            });;
+        }
+
+        function requestStopCollectNews() {
+            $.post('/api/CollectorManagement/StopCollectNews').done(function (data) {
+                notifyMessage(data.MessageContent, data.MessageType);
+            });;
+        }
+
+        var intervalId = setInterval(function () {
+            try {
+                $.getJSON('/api/CollectorManagement/UpdateInfo').done(function (data) {
+                    collectorInfo = data;
+                    if (data.IsCollectorBusy == true)
+                        updateCollectorInfo();
+                    else {
+                        clearCollectorInfo();
+                    }
+                }).fail(function () {
+                });
+            }
+            catch (err) {
+            }
+        }, 100);
+
+        $('#btn-start-collect').click(function () {
+            if (collectorInfo.IsCollectorBusy == false)
+                requestCollectNews();
+            else {
+                notifyMessage('Bộ thu thập hiện tại đang bận. Hãy thử lại sau', 'danger')
+            }
+        });
+        $('#btn-stop-collect').click(function () {
+            if (collectorInfo != null && collectorInfo.IsCollectorBusy == true) {
+                requestStopCollectNews();
+            }
+            else {
+                notifyMessage('Bộ thu thập hiện tại không hoạt đông', 'danger')
+            }
+        });
+    </script>
+}

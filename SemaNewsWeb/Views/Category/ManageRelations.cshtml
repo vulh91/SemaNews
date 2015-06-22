@@ -1,0 +1,252 @@
+﻿@model SemaNewsWeb.ViewModels.CategoryVM
+
+@{
+    ViewBag.Title = "Lĩnh vực " + @Model.GField.Name;
+    var countRelations = Model.GGRelationsIn.Count + Model.GGRelationsOut.Count;
+    var countFields = Model.Fields.Count;
+}
+<div id="main-container" class="container">
+    <div class="col-sm-3 buffer-top-md">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="@Url.Action("Edit", "Category", new { id = @Model.GField.Id })">Thông tin cơ bản</a></li>
+            <li class="active"><a href="@Url.Action("ManageRelations", "Category", new { id = @Model.GField.Id })">Các quan hệ <span class="badge pull-right">@countRelations</span></a></li>
+            <li><a href="@Url.Action("ManageFields", "Category", new { id = @Model.GField.Id })">Các trang lĩnh vực <span class="badge pull-right">@countFields</span></a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9">
+        <div class="page-header">
+            <h1>@ViewBag.Title -<small>Danh sách các quan hệ</small></h1>
+            <a id="btn-add-relation" class="btn btn-lg btn-primary"><span class="fa fa-plus"></span> Thêm quan hệ</a>
+        </div>
+
+        <div>
+            @if (countRelations == 0)
+            {
+                <div class="alert alert-warning">Lĩnh vực <strong>@Model.GField.Name</strong> chưa được định nghĩa quan hệ nào !</div>
+            }
+            else
+            {
+                <table id="table-relations" class="table table-hover">
+                    <tr>
+                        <th>Lĩnh vực 1</th>
+                        <th>Lĩnh vực 2</th>
+                        <th>Tên quan hệ</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.GGRelationsOut)
+                    {
+                        <tr>
+                            <td>@item.GField1.Name</td>
+                            <td>@item.GField2.Name</td>
+                            <td>@item.GGRelation.Name</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary btn-edit-rel" href="#"><span class="fa fa-edit"></span></a>
+                                <a class="btn btn-sm btn-danger btn-delete-rel" data-name="@item.GField1.Name-@item.GGRelation.Name-@item.GField2.Name" data-id="@item.GFieldId1|@item.GFieldId2|@item.GGRelationId" href="#"><span class="fa fa-trash-o"></span></a>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var item in Model.GGRelationsIn)
+                    {
+                        <tr>
+                            <td>@item.GField1.Name</td>
+                            <td>@item.GField2.Name</td>
+                            <td>@item.GGRelation.Name</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary btn-edit-rel" href="#"><span class="fa fa-edit"></span></a>
+                                <a class="btn btn-sm btn-danger btn-delete-rel" data-name="@item.GField1.Name-@item.GGRelation.Name-@item.GField2.Name" data-id="@item.GFieldId1|@item.GFieldId2|@item.GGRelationId" href="#"><span class="fa fa-trash-o"></span></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
+</div>
+<div id="modals-container">
+    <!-- Modal -->
+    <div class="modal fade" id="modal-add-relation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="form-add-relation" class="form form-horizontal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title" id="myModalLabel">Thêm quan hệ mới</h3>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Lĩnh vực 1</label>
+                            <div class="col-sm-9">
+                                @Html.DropDownList("GField1", new SelectList(Model.AllGFields, "Id", "Name"), "", new { @class = "form-control", @id = "idGField1", @name="idGField1"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Lĩnh vực 2</label>
+                            <div class="col-sm-9">
+                                @Html.DropDownList("GField2", new SelectList(Model.AllGFields, "Id", "Name"), "", new { @class = "form-control", @id = "idGField2", @name="idGField2"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Quan hệ</label>
+                            <div class="col-sm-9">
+                                @Html.DropDownList("GRelation", new SelectList(Model.AllRelations, "Id", "Name"), "", new { @class = "form-control", @id = "idRelation", @name="idRelation"})
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary btn-ok">Thêm quan hệ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-delete-relation" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h2 class="modal-title" id="">Xóa quan hệ</h2>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger btn-delete">Xóa</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#btn-add-relation').click(function () {
+                $('#modal-add-relation').modal('show');
+                $('#modal-add-relation #idGField1').val('@Model.GField.Id');
+                $('#modal-add-relation #idGField2').val('@Model.GField.Id');
+            });
+
+            $('#form-add-relation').validate(
+            {
+                rules: {
+                },
+                messages: {
+                }
+            });
+
+            $('#form-add-relation .btn-ok').click(function () {
+                var gfieldId1 = $('#idGField1').val();
+                var gfieldId2 = $('#idGField2').val();
+                var relationId = $('#idRelation').val();
+
+                if (gfieldId1 == null || gfieldId1 == '') {
+                    notifyMessage('Hãy chọn lĩnh vực phân loại 1', 'info');
+                    return;
+                }
+
+                if (gfieldId2 == null || gfieldId2 == '') {
+                    notifyMessage('Hãy chọn lĩnh vực phân loại 2', 'info');
+                    return;
+                }
+
+                if (relationId == null || relationId == '') {
+                    notifyMessage('Hãy chọn loại quan hệ giữa lĩnh vực 1 & lĩnh vực 2', 'info');
+                    return;
+                }
+
+                if (gfieldId1 == gfieldId2) {
+                    notifyMessage('Không thể tạo quan hệ giữa hai lĩnh vực giống nhau', 'danger');
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("AjaxCreate", "GGRelation")',
+                    type: 'POST',
+                    data: {
+                        gfieldId1 : gfieldId1,
+                        gfieldId2 : gfieldId2,
+                        relId : relationId
+                    },
+                    success: function (data) {
+                        if (data.OK == true) {
+                            notifyMessage(data.Message, 'success');
+                            $('#modal-add-relation').modal('hide');
+                            if(window.top == window){
+                                window.setTimeout('location.reload()', 2000); //reloads the page
+                            }
+                        }
+                        else
+                            notifyMessage(data.Message, 'danger');
+                    },
+                    error: function () {
+                        notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu', 'danger');
+                    }
+                });
+
+            });
+
+            function ShowModalDelRelation(id, name) {
+                var modalTitle = "Xóa quan hệ <em>" + name +"</em>";
+                var modalBody = '<p class="lead">Bạn thực sự muốn xóa quan hệ này ? </p>';
+                modalBody += '<div class="alert alert-danger">';
+                modalBody += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'
+                modalBody += '<h4>CẢNH BÁO</h4>';
+                modalBody += 'Bạn đang yêu cầu xóa quan hệ <strong>' + name + '</strong>';
+                modalBody += '<p>Việc xóa lĩnh vực phân loại này sẽ ảnh hưởng tới việc phân loại tin bài thu thập được từ các trang báo điện tử. Một khi bạn đồng ý xóa, việc khôi phục là không thể !</p>'
+                modalBody += '</div>';
+
+                $('#modal-delete-relation #myModalLabel').html(modalTitle);
+                $('#modal-delete-relation .modal-header .modal-title').html(modalTitle);
+                $('#modal-delete-relation .modal-body').html(modalBody);
+                $('#modal-delete-relation .btn-delete').attr('data-id', id);
+                $('#modal-delete-relation').modal('show');
+            }
+
+            $('#table-relations .btn-delete-rel').click(function () {
+                ShowModalDelRelation($(this).attr('data-id'), $(this).attr('data-name'));
+            });
+            
+            $('#modal-delete-relation .btn-delete').click(function () {
+                var dataIDs = $(this).attr('data-id').split("|");
+                var gfieldId1 = dataIDs[0];
+                var gfieldId2 = dataIDs[1];
+                var relId = dataIDs[2];
+
+                if (gfieldId1 == null || gfieldId1 == ''
+                    || gfieldId2 == null || gfieldId2 == ''
+                    || relId == null || relId == '') {
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("AjaxDelete", "GGRelation")',
+                    type: 'POST',
+                    data: {
+                        gfieldId1: gfieldId1,
+                        gfieldId2: gfieldId2,
+                        relId: relId
+                    },
+                    success: function (data) {
+                        if (data.OK) {
+                            $('#modal-delete-relation').modal('hide');
+                            notifyMessage(data.Message, 'success');
+                            if (window.top == window) {
+                                window.setTimeout('location.reload()', 2000); //reloads the page
+                            }
+                        }
+                        else {
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error: function () {
+                        notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu !', 'danger');
+                    }
+                });
+            });
+        });
+    </script>
+}

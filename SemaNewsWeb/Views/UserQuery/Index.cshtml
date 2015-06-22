@@ -1,0 +1,88 @@
+﻿@model List<SemaNewsCore.Models.UserQuery>
+@{
+    ViewBag.Title = "Danh sách các câu truy vấn";
+}
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    <div>
+        <table class="table table-hover">
+            <tr>
+                <th>Thời gian</th>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Số lượng tin bài</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    <td>@item.SavedTime</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.SavedArticles.Count</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-primary" href="@Url.Action("Query","UserQuery",new{id = @item.Id})"><span class="fa fa-laptop"></span></a>
+                            <a data-id="@item.Id" class="btn btn-sm btn-danger btn-delete" href="#"><span class="fa fa-trash-o"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div id="modal-delete-query" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">XÓA CÂU TRUY VẤN</h4>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắc muốn thực hiện điều này ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">HỦY</button>
+        <button type="button" data-id="" class="btn btn-danger btn-delete">ĐỒNG Ý XÓA</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section scripts{
+    <script>
+        $('.btn-delete').click(function () {
+            var queryId = $(this).attr('data-id');
+            $('#modal-delete-query .btn-delete').attr('data-id', queryId);
+            $('#modal-delete-query').modal('show');
+        });
+        $('#modal-delete-query .btn-delete').click(function () {
+            var queryId = $(this).attr('data-id');
+            $('#modal-delete-query').modal('hide');
+            
+            $.ajax({
+                url: '@Url.Action("Delete", "UserQuery")',
+                type: 'POST',
+                data: {id : queryId},
+                success: function (data) {
+                    if (data.OK == true) {
+                        notifyMessage(data.Message, 'success');
+                        var tr = $('tr[data-id="' + queryId + '"]');
+                        tr.fadeOut(400, function () {
+                            tr.remove();
+                        });
+                    }
+                    else {
+                        notifyMessage(data.Message, 'danger');
+                    }
+                },
+                error: function (data) {
+                    notifyMessage('ERROR! Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu...', 'danger');
+                }
+            });
+        });
+    </script>
+}

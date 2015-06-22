@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>SemaNews - @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="~/Content/FontAwesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/Bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/Bootstrap/css/carousel.css" />
+    <link rel="stylesheet" href="~/Content/MagicSuggest/magicsuggest-min.css">
+    <link rel="stylesheet" href="~/Content/Switcher/style-switcher.css" />
+    <link rel="stylesheet" href="~/Content/TreeviewBootstrap/bootstrap-treeview.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div id="main-navbar" class="navbar navbar-default navbar-fixed-top mirror-background" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="~/">SemaNews</a>
+            </div>
+            <div class="navbar-collapse in" style="height: auto;">
+                <ul class="nav navbar-nav">
+                    <li><a href="~/">Trang chủ</a></li>
+                    @Html.Partial("_AdminPartial")
+                    <li class="drop-down">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tin tức <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-submenu">
+                                <a href="#">Điểm tin</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Highlights")">Tin chung</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Highlights", new { @isRelevantToLocalOnly = true })">Tin tỉnh Bình Dương</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="@Url.Action("Index","News")">Tin tổng hợp</a>
+                                <ul class="dropdown-menu">
+                                    @Html.Raw(SemaNewsWeb.Helpers.CategoryTreeBuilder.BuildGFTree())
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#about">Giới thiệu</a></li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+    @RenderBody()
+
+    @RenderSection("featured", false)
+
+    <!-- /container -->
+    <footer id="footer-white" class="ui-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 menu">
+                    <h3>INFO</h3>
+                    <ul>
+                        <li>
+                            <a href="#">University of Information Technology</a>
+                        </li>
+                        <li>
+                            <a href="http://ke-app.sytes.net">KE Group</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">Coming soon</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row credits">
+                <div class="col-md-12 text-center">
+                    <p>Copyright © 2014. SemaNews</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrapjs")*@
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Content/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.bootstrap-growl.min.js"></script>
+    <script src="~/Content/MagicSuggest/magicsuggest-min.js"></script>
+    <script src="~/Content/TreeviewBootstrap/bootstrap-treeview.js"></script>
+    <script src="~/Scripts/Custom/semanews-common.js"></script>
+    <script src="~/Content/Switcher/js-switcher.js"></script>
+
+    <!--Handling notification messages-->
+    <script>
+        $(document).ready(function(){
+            $(function () {
+                $("[data-tooggle='tooltip']").tooltip();
+            });
+
+            var messages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Messages));
+            if(messages !=null && messages.length!=0)
+            {
+                for(var i = 0; i<messages.length; i++)
+                {
+                    notifyMessage(messages[i].MessageContent, messages[i].MessageType);
+                }
+            }
+            
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

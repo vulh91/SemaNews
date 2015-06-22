@@ -1,0 +1,98 @@
+﻿@model SemaNewsWeb.ViewModels.NewspaperVM
+
+@{
+    ViewBag.Title = Model.Newspaper.Name;
+}
+
+
+<div id="main-container" class="container">
+    <div class="col-sm-3 buffer-top-md">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="@Url.Action("Edit", "Newspaper", new { id = @Model.Newspaper.Id })">Thông tin cơ bản</a></li>
+        <li><a href="@Url.Action("ManageFields", "Newspaper", new { id = @Model.Newspaper.Id })">Các lĩnh vực <span class="badge pull-right">@Model.Fields.Count()</span></a></li>
+        <li><a href="@Url.Action("ManageFieldStructures", "Newspaper", new { id = @Model.Newspaper.Id })">Cấu trúc các trang lĩnh vực</a></li>
+        <li class="active"><a href="@Url.Action("ManageArticleStructures", "Newspaper", new { id = @Model.Newspaper.Id })">Cấu trúc các trang tin bài</a></li>
+    </ul>
+</div>
+
+
+    <div class="col-sm-9">
+        <div class="page-header">
+            <h1>@ViewBag.Title <small> - Cấu trúc các trang tin bài</small></h1>
+            @*@Html.ActionLink("Định nghĩa mới", "Create", "FieldStructure", new { NewspaperId = @Model.Newspaper.Id }, new { @class = "btn btn-lg btn-primary" })*@
+            <a id="btn-article-structure-def" href="#" class ="btn btn-primary">Định nghĩa mới</a>
+        </div>
+        @if (Model.ArticleStructures == null || Model.ArticleStructures.Count() == 0)
+        {
+            <div class="alert alert-danger">
+                <p class="">Hiện tại, chưa có cấu trúc của bất kì trang tin bài nào được định nghĩa ...</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover">
+                <tr>
+                    <th>NHÓM CẤU TRÚC</th>
+                    <th></th>
+                </tr>
+                @foreach (var structure in Model.ArticleStructures)
+                {
+                    <tr>     
+                        <td class="col-md-11">@structure.GroupIdentity</td>
+                        <td class="col-md-1">
+                            @using (Html.BeginForm("Delete", "ArticleStructure", FormMethod.Post))
+                            {
+                                @Html.ValidationSummary(true)
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" value="@structure.GroupIdentity" name="groupId" />
+                                <input type="hidden" value="@Model.Newspaper.Id" name="newspaperId" />                                
+                                <button type="submit" class="btn btn-sm btn-danger" onclick = "return confirm('Bạn thực sự muốn xóa nhóm cấu trúc này?');"><span class="fa fa-trash-o"></span></button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        <div class="">
+            <a class="btn btn-default" href="@Url.Action("ManageFieldStructures", new { id=@Model.Newspaper.Id})"><span class="fa fa-arrow-left"></span></a>
+        </div>
+    </div>
+</div>
+<div id="article-input-url-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Nhập địa chỉ trang tin cần định nghĩa</h4>
+            </div>
+            @using (Html.BeginForm("Create", "ArticleStructure", FormMethod.Get, new { @class = "form-horizontal" }))
+            {
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" for="articleUrl">Url</label>
+                        <div class="col-sm-9">
+                            <input name="newspaperId" value="@Model.Newspaper.Id" type="hidden" />
+                            <input id="articleUrl" name="articleUrl" type="text" class="form-control" />                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Đồng ý tạo" class="btn btn-primary" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#btn-article-structure-def').click(function () {
+                $("#article-input-url-modal").modal("show");
+            });
+        });
+    </script>
+}
+

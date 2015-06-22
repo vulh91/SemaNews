@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1e084d95b00944788e8fa074996c6819" Name="Diagram1">
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Alpha" Width="1.5" PointX="2.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Beta" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Class_ClassRelationship" Width="1.5" PointX="8" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.ClassRelationship" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.IPWeight" Width="1.5" PointX="4.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Keyphrase" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Keyphrase_KeyphraseClass" Width="1.5" PointX="8" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Keyphrase_KeyphraseRelationship" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.KeyphraseClass" Width="1.5" PointX="5.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.KeyphraseGraph" Width="1.5" PointX="2.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.KeyphraseRelationship" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Location" Width="1.5" PointX="4.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Organization" Width="1.5" PointX="6.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.PartOfSpeech" Width="1.5" PointX="8.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Person" Width="1.5" PointX="10.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Phrase" Width="1.5" PointX="10.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.POSDictionary" Width="1.5" PointX="10.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.sysdiagram" Width="1.5" PointX="10.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DTC_DTNN_CKONTOLOGYModel.Topic" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_BetaTable_KeyphraseRelationshipTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_BetaTable_KeyphraseRelationshipTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Class_ClassRelationshipTable_ClassRelationshipTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Class_ClassRelationshipTable_KeyphraseClassTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Keyphrase_KeyphraseClassTable_KeyphraseClassTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DTC_DTNN_CKONTOLOGYModel.FK_Keyphrase_KeyphraseRelationshipTable_KeyphraseRelationshipTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,92 @@
+﻿@model SemaNewsWeb.ViewModels.NewspaperVM
+
+@{
+    ViewBag.Title = Model.Newspaper.Name;
+}
+
+<div id="main-container" class="container">
+    <div class="col-sm-3 buffer-top-md">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="@Url.Action("Edit","Newspaper",new{id=@Model.Newspaper.Id})">Thông tin cơ bản</a></li>
+            <li><a href="@Url.Action("ManageFields", "Newspaper", new { id = @Model.Newspaper.Id })">Các lĩnh vực <span class="badge pull-right">@Model.Fields.Count()</span></a></li>
+            <li><a href="@Url.Action("ManageFieldStructures","Newspaper", new{id=@Model.Newspaper.Id})">Cấu trúc các trang lĩnh vực</a></li>
+            <li ><a href="@Url.Action("ManageArticleStructures","Newspaper",new{id=@Model.Newspaper.Id})">Cấu trúc các trang tin bài</a></li>
+        </ul>
+    </div>
+
+    <div class="col-sm-9">
+        <div class="page-header">
+            <h1>@ViewBag.Title <small> - Thông tin cơ bản</small></h1>
+        </div>
+        @using (Html.BeginForm("Edit", "Newspaper", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.Newspaper.Id)
+            @Html.HiddenFor(model=>model.Newspaper.DefinedTime)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Newspaper.Name,"Tên", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.Newspaper.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Newspaper.Name)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Newspaper.Url,"Địa chỉ", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.Newspaper.Url, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Newspaper.Url)
+                </div>
+
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Newspaper.Description,"Thông tin", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.Newspaper.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Newspaper.Description)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Newspaper.IsLocal,"Báo trong tỉnh?", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.Newspaper.IsLocal, new SelectListItem[] { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "No", Value = "false", Selected=true } }, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Newspaper.IsLocal)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ParentNewspaperId, "Trang báo điện tử cha", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.ParentNewspaperId, ViewBag.ParentNewspaper as SelectList, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ParentNewspaperId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Newspaper.IsActivated,"Chọn thu thập?", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.Newspaper.IsActivated, new SelectListItem[] { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "No", Value = "False", Selected = true } }, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Newspaper.IsActivated)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6 col-sm-6 col-xs-6">
+                    <a class="btn btn-default" href="@Url.Action("Index")"><span class="fa fa-arrow-left"></span></a>
+                    <a class="btn btn-default" href="@Url.Action("ManageFields", new{id=@Model.Newspaper.Id})"><span class="fa fa-arrow-right"></span></a>
+                </div>
+                <div class="pull-right col-md-2">
+                    <input type="submit" value="Lưu thay đổi" class="btn btn-primary form-control" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

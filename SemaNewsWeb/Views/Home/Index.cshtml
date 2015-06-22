@@ -1,0 +1,71 @@
+﻿@model SemaNewsWeb.ViewModels.HomeVM
+@{
+    ViewBag.Title = "Home";
+}
+
+<div id="main-container" class="container buffer-bot-md" role="form">
+    <div class="buffer-top" style="height: 300px">
+    </div>
+    @using (Html.BeginForm("Index", "Search", FormMethod.Get, htmlAttributes: new { @class = "form form-horizontal search-form" }))
+    {
+        <div class="input-group col-md-offset-1 col-md-9">
+            <input type="text" name="query" id="query" class="form-control" placeholder="Nhập câu truy vấn tìm kiếm" required="required" autofocus="autofocus">
+            <p class="text-warning search-warning"></p>
+            <span class="input-group-btn">
+                <a class="btn btn-default btn-advanced-search" href="@Url.Action("TextSearch", "Search")" data-tooggle="tooltip" data-placement="top" title="Tìm kiếm nâng cao"><span class="fa fa-cog"></span></a>
+                <button type="submit" id="search-submit-button" class="btn btn-primary" data-tooggle="tooltip" data-placement="top" title="Thực hiện tìm kiếm"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
+        
+        <div id="search-modes" class="form-group">
+            <div class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="isSemantic" value="false" checked="checked" />
+                        Tìm kiếm thông thường
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-5 col-xs-12">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="isSemantic" value="true" />
+                        Tìm kiếm ngữ nghĩa
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+    }
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            //Trigger tooltips
+            $('#search-form').submit(function (e) {
+                var query = $('#searchQuery').val();
+
+                var mode = $('input[name="query"]:checked').val();
+
+                if (query.trim() != "") {
+                }
+                else {
+                    $('#search-form .search-warning').text('Please filling your search query first');
+                    e.preventDefault();
+                }
+            });
+
+            $('input[name="isSemantic"]').change(function () {
+                var mode = $('input[name="isSemantic"]:checked').val();
+                if (mode == 'true') {
+                    $('a.btn-advanced-search').attr('href', '@Url.Action("SemanticSearch", "Search")');
+                }
+                else {
+                    $('a.btn-advanced-search').attr('href', '@Url.Action("TextSearch", "Search")');
+                }
+            });
+        });
+    </script>
+}

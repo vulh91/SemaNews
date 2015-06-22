@@ -1,0 +1,144 @@
+﻿@model SemaNewsWeb.ViewModels.TopicVM
+
+@{
+    ViewBag.Title = "Thay đổi thông tin chủ đề";
+    var tags = Model.Tags;
+    var keyphrasesLDVL = Model.KeyphrasesLDVL;
+    var keyphrasesDT = Model.KeyphrasesDT;
+
+    var allLDVLKeyphrases = ViewData["LDVL_Keyphrases"];
+    var allDTKeyphrases = ViewData["DT_Keyphrases"];
+}
+
+
+<div id="main-container" class="container">
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    @using (Html.BeginForm("Edit", "Topic", FormMethod.Post, new { @class = "form form-horizontal", @id="form-edit-topic" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Topic.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Topic.Name,"Tên", new { @class="col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Topic.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Topic.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Topic.Description,"Mô tả", new { @class="col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Topic.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Topic.Description)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Topic.Tags,"Các từ khóa", new { @class="col-md-3 control-label"})
+            <div class="col-md-9">
+                <div id="suggest-tags"></div>
+                @Html.ValidationMessageFor(model => model.Topic.Tags)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.KeyphrasesDT,"Các keyphrase Lao động - Việc làm", new { @class="col-md-3 control-label"})
+            <div class="col-md-9">
+                <div id="suggest-keyphrases-LDVL"></div>
+                @Html.ValidationMessageFor(model => model.KeyphrasesDT)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.KeyphrasesLDVL,"Các keyphrase Đầu tư công - Đầu tư nước ngoài", new { @class="col-md-3 control-label"})
+            <div class="col-md-9">
+                <div id="suggest-keyphrases-DT"></div>
+                @Html.ValidationMessageFor(model => model.KeyphrasesLDVL)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="button" class="btn btn-primary btn-submit">Lưu thay đổi</button>
+                <a class="btn btn-default" href="@Url.Action("Index")"><span class="fa fa-arrow-left"></span> Quay lại</a>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script>
+        var dataModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+        var suggestTags = $('#suggest-tags').magicSuggest({
+            hideTrigger: true,
+            placeholder: '',
+            maxDropHeight: 0,
+            value: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(tags))
+            });
+        var suggestKeyphrasesLDVL = $('#suggest-keyphrases-LDVL').magicSuggest({
+            data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(allLDVLKeyphrases)),
+            allowFreeEntries: false,
+            hideTrigger: true,
+            placeholder: '',
+            value: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(keyphrasesLDVL))
+            });
+        var suggestKeyphrasesDT = $('#suggest-keyphrases-DT').magicSuggest({
+            data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(allDTKeyphrases)),
+            hideTrigger: true,
+            allowFreeEntries: false,
+            placeholder: '',
+            value: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(keyphrasesDT))
+            });
+
+        $(document).ready(function()
+        {
+            $('form#form-edit-topic .btn-submit').click(function()
+            {
+                dataModel.Topic.Id = $('#form-edit-topic input[name="Topic.Id"]').val();
+                dataModel.Topic.Name = $('#form-edit-topic input[name="Topic.Name"]').val();
+                dataModel.Topic.Description = $('#form-edit-topic textarea[name="Topic.Description"]').val();
+                dataModel.Tags = suggestTags.getSelection().map(function(elem){
+                    return elem.name;
+                });
+                dataModel.KeyphrasesLDVL = suggestKeyphrasesLDVL.getSelection().map(function(elem){
+                    return elem.name;
+                });
+                dataModel.KeyphrasesDT = suggestKeyphrasesDT.getSelection().map(function(elem){
+                    return elem.name;
+                });
+
+                var data = {topic: dataModel};
+
+                $.ajax({
+                    url: '@Url.Action("AjaxEdit")',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success:function(data)
+                    {
+                        if(data.OK == true)
+                        {
+                            notifyMessage(data.Message, 'success');
+                            window.setTimeout(function(){
+                                window.location.href = '@Url.Action("Index")';
+                             }, 1000);
+                        }
+                        else
+                        {
+                            notifyMessage(data.Message, 'danger');
+                        }
+                    },
+                    error:function()
+                    {
+                        notifyMessage('Đã có lỗi xảy ra trong quá trình thực hiện yêu cầu!', 'danger');
+                    }
+                });
+            });
+        });
+    </script>
+}

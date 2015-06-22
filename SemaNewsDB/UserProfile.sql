@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[UserProfile](
+	[Id] INT NOT NULL PRIMARY KEY,
+	[DisplayName]NVARCHAR(MAX) NULL,
+	[Avatar] NVARCHAR(MAX) NULL,
+	[DateCreated] SMALLDATETIME NULL,
+	[Signature] NVARCHAR(MAX) NULL, 
+    CONSTRAINT [FK_UserProfile_User] FOREIGN KEY ([Id]) REFERENCES [User]([Id])
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+
+
+)

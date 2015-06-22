@@ -1,0 +1,267 @@
+﻿.DWM_outer { display:none; position:absolute; z-index:65000; border:1px dashed black; }
+.hover
+{
+    padding:inherit;
+    background-image:none;
+    border: 1px dashed #454545; 
+		
+}  
+.child_hover
+{
+    padding:inherit;
+    background-image:none;
+    background:none !important;
+        
+}
+     
+.welist_hover  {
+        background-color: #919bd1  !important;
+    }
+.wepage_hover  {
+        background-color: #8dc18e  !important;
+    }
+
+.WMController
+{
+	position:fixed;
+    margin: auto;
+    width : 100%;
+    z-index:99999;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.40) !important;
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+.WMSelector
+{
+	background-color: rgba(0, 64, 128, 0.3);
+	z-index:10;
+	position:absolute;
+	border: 1.5px dashed #454545;
+}
+.WMDefineForm
+    {
+    position:fixed;
+    z-index:99999;
+    width: auto;
+    height:auto;
+    top: 15%;
+    left: 50%;
+    background-color : #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    margin-left: -280px;
+    outline: medium none;
+    position: fixed;
+        
+    }
+
+#WMGroupForm form,#WMCreateForm {
+        padding: 5px 20px;
+    }
+
+.CommonCss {
+    text-align: left !important;
+}
+.CommonCss h1, h2, h3, h4, h5, h6 {
+        color: #555555;
+    font-family: inherit;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 10px 0;
+    text-rendering: optimizelegibility;
+}
+.CommonCss h3 {
+    font-size: 24.5px;
+}
+.CommonCss h4 {
+    font-size: 17.5px;
+}
+.CommonCss .btn {
+            background: none repeat scroll 0 0 #FBFBF9;
+border: medium none;
+box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35), 0 2px 3px #FFFFFF inset;
+color: #222222 !important;
+text-shadow: none;
+transition: all 0.3s ease 0s;
+border-radius: 4px 4px 4px 4px;
+color: #333333;
+cursor: pointer;
+display: inline-block;
+font-size: 14px;
+line-height: 20px;
+margin-bottom: 0;
+padding: 4px 12px;
+text-align: center;
+vertical-align: middle;
+    }
+.CommonCss .btn:hover {
+            background: #fbfbf9;
+text-shadow: 0 0 1px #222222;
+color: #222222 !important;
+-webkit-box-shadow: 1px 0px 1px rgba(0,0,0,0.1), inset 0px 1px 1px #fff;
+	-moz-box-shadow: 1px 0px 1px rgba(0,0,0,0.1), inset 0px 1px 1px #fff;
+		box-shadow: 1px 0px 1px rgba(0,0,0,0.1), inset 0px 1px 1px #fff;
+-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+		-o-transition: all 0.3s ease;
+		transition: all 0.3s ease;	
+        }
+.CommonCss .btn-danger {
+    background: none repeat scroll 0 0 #FBFBF9;
+    color: #F1360A !important;
+}
+
+.CommonCss select {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 220px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 4px 4px 4px 4px;
+    color: #555555;
+    font-size: 14px;
+    padding: 4px 6px;
+}
+
+.CommonCss input[type="text"] {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    border-radius: 4px 4px 4px 4px;
+    color: #555555;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    padding: 4px 6px;
+}
+
+.CommonCss input[type="text"].full-width {
+    width: 100%;
+}
+
+.CommonCss [class^="icon-"], [class*=" icon-"] {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+}
+.CommonCss [class^="icon-"], [class*=" icon-"] {
+    background-image: url("/Images/glyphicons-halflings.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 14px;
+    line-height: 14px;
+    margin-top: 1px;
+    vertical-align: text-top;
+    width: 14px;
+}
+.CommonCss .icon-arrow-left {
+    background-position: -240px -96px;
+}
+.CommonCss .icon-trash {
+    background-position: -456px 0;
+}
+
+.CommonCss .close {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    padding: 0;
+        color: #000000;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    opacity: 0.2;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.CommonCss .close:hover {
+    color: #000000;
+    cursor: pointer;
+    opacity: 0.4;
+    text-decoration: none;
+}
+
+.CommonCss .modal-header {
+    background-color: #D9EDF7;
+    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 9px 15px;
+}
+.CommonCss .modal-body {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 15px;
+    position: relative;
+}
+.CommonCss .modal-footer:before, .CommonCss .modal-footer:after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.CommonCss .modal-footer:after {
+    clear: both;
+}
+.CommonCss .modal-footer {
+    background-color: #F5F5F5;
+    border-radius: 0 0 6px 6px;
+    border-top: 1px solid #DDDDDD;
+    box-shadow: 0 1px 0 #FFFFFF inset;
+    margin-bottom: 0;
+    padding: 14px 15px 15px;
+    text-align: right;
+}
+.CommonCss hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #E7E7E7 -moz-use-text-color #FEFEFE;
+    border-image: none;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-style: solid none;
+    border-width: 1px 0;
+    margin: 20px 0;
+}
+
+.CommonCss table {
+    width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 100%;
+}
+.CommonCss table {
+    text-align: center;
+}
+.CommonCss table td {
+    padding-right: 10px;
+}
+.CommonCss table th, .CommonCss table td {
+border-top: 1px solid #DDDDDD;
+line-height: 20px;
+padding: 8px;
+text-align: center;
+vertical-align: middle;
+}
+.CommonCss table tr.info > td {
+    background-color: #D9EDF7;
+    text-align: center;
+}
+
+.CommonCss .hidden {
+    display: none;
+}
+/*.CommonCss div {
+    display: inline;
+}*/
+

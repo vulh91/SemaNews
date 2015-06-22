@@ -1,0 +1,13 @@
+﻿@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+{
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-gears"></span>  Quản lí <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Index", "Newspaper")"><span class="fa fa-database"></span> Cấu trúc các trang báo</a></li>
+            <li><a href="@Url.Action("Set","Article")"><span class="fa fa-database"></span> Kho tin bài</a></li>
+            <li><a href="@Url.Action("Config", "Category")"><span class="fa fa-folder"></span> Lĩnh vực phân loại tin bài</a></li>
+            <li><a href="@Url.Action("Index", "Topic")"><span class="fa fa-book"></span> Chủ đề tin tức</a></li>
+            <li><a href="@Url.Action("Index", "Collector")"><span class="fa fa-download"></span> Bộ thu thập tin tức</a></li>
+        </ul>
+    </li>
+}

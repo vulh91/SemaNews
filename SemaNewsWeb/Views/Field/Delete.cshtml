@@ -1,0 +1,49 @@
+﻿@model SemaNewsWeb.ViewModels.FieldVM
+
+@{
+    ViewBag.Title = "Xóa trang lĩnh vực";
+    var fieldsCount = ViewBag.FieldsCount;
+}
+
+<div id="main-container" class="container">
+    <div class="col-sm-3 buffer-top-md">
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="@Url.Action("Edit", "Newspaper", new { id = @Model.Newspaper.Id })">Thông tin cơ bản</a></li>
+            <li class="active"><a href="@Url.Action("ManageFields", "Newspaper", new { id = @Model.Newspaper.Id })">Các lĩnh vực <span class="badge pull-right">@fieldsCount</span></a></li>
+            <li><a href="@Url.Action("ManageFieldStructures", "Newspaper", new { id = @Model.Newspaper.Id })">Cấu trúc các trang lĩnh vực</a></li>
+            <li><a href="@Url.Action("ManageArticleStructures", "Newspaper", new { id = @Model.Newspaper.Id })">Cấu trúc các trang tin bài</a></li>
+        </ul>
+    </div>
+
+    <div class="col-sm-9">
+        <div class="page-header">
+            <h1>@Model.Newspaper.Name<small>- Xóa trang lĩnh vực @Model.Field.Name</small></h1>
+        </div>
+        @using (Html.BeginForm("Delete", "Field", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.Field.NewspaperId)
+            @Html.HiddenFor(model => model.Field.Id)
+                
+            <div class="alert alert-danger">
+                <h4>CẢNH BÁO</h4>
+                <p>
+                    Bạn có chắc chắn muốn xóa lĩnh vực <strong>@Html.DisplayFor(model => model.Field.Name)</strong> của báo <strong>@Model.Newspaper.Name</strong> ?
+                </p>
+                <p>
+                    Một khi đã xóa, bạn không thể khôi phục lại thông tin, cấu trúc thông tin của trang lĩnh vực này.
+                </p>
+                
+            </div>
+    
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="submit" value="Đồng ý xóa" class="btn btn-danger" />
+                    @Html.ActionLink("Quay lại danh sách", "ManageFields", "Newspaper", new { id = Model.Newspaper.Id }, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        }
+    </div>
+</div>
