@@ -12,6 +12,7 @@ using System.Web.Security;
 
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class CollectorController : Controller
     {
         public ActionResult Index(DateTime? from, DateTime? to)

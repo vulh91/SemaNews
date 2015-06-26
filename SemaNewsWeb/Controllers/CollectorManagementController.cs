@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class CollectorManagementController : ApiController
     {
         public bool StartEngine()

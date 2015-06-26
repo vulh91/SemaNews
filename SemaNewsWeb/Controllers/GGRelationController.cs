@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class GGRelationController :Controller
     {
         SemaNewsCore.Models.SemaNewsDBContext entities = new SemaNewsCore.Models.SemaNewsDBContext();

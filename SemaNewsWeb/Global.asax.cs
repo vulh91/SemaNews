@@ -44,7 +44,7 @@ namespace SemaNewsWeb
                         using (SemaNewsCore.Models.SemaNewsDBContext entities= new SemaNewsCore.Models.SemaNewsDBContext())
                         {
                             var user = entities.Users.SingleOrDefault(u => u.Name == userName);
-                            userRoles = user.Role.Name;
+                            userRoles = user.Role!=null? user.Role.Name : "";
                         }
                         HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(
                             new System.Security.Principal.GenericIdentity(userName, "Forms"),

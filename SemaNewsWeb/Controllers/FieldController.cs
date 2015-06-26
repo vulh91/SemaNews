@@ -10,6 +10,7 @@ using System.Web.Security;
 
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class FieldController : Controller
     {
         private SemaNewsDBContext entities = new SemaNewsDBContext();

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class UserQueryController : Controller
     {
         public SemaNewsDBContext entities = new SemaNewsDBContext();

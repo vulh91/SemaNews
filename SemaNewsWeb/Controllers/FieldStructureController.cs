@@ -10,6 +10,7 @@ using SemaNewsWeb.Extensions;
 using System.Text.RegularExpressions;
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class FieldStructureController : Controller
     {
         private SemaNewsDBContext entities = new SemaNewsDBContext();

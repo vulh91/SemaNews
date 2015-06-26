@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class TopicController : Controller
     {
         //

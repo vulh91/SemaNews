@@ -190,6 +190,7 @@
     <Compile Include="ViewModels\MsgType.cs" />
     <Compile Include="ViewModels\NewspaperVM.cs" />
     <Compile Include="ViewModels\HomeVM.cs" />
+    <Compile Include="ViewModels\RegisterVM.cs" />
     <Compile Include="ViewModels\SavedSearchMatch.cs" />
     <Compile Include="ViewModels\SaveSearchResultVM.cs" />
     <Compile Include="ViewModels\SearchQueryVM.cs" />
@@ -378,6 +379,7 @@
     <Content Include="Views\News\Category.cshtml" />
     <Content Include="Views\Article\Set.cshtml" />
     <Content Include="Views\Article\Add.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <None Include="Web.Vu.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

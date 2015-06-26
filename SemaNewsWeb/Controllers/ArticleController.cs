@@ -8,10 +8,12 @@ using SemaNewsWeb.ViewModels;
 
 namespace SemaNewsWeb.Controllers
 {
+    [Authorize]
     public class ArticleController : Controller
     {
         private SemaNewsDBContext entities = new SemaNewsDBContext();
 
+        [AllowAnonymous]
         public ActionResult Index(int id)
         {
             var article = entities.Articles.Find(id);
@@ -69,6 +71,7 @@ namespace SemaNewsWeb.Controllers
             return View();
         }
 
+
         [HttpPost, ValidateInput(false)]
         public ActionResult Add(Article article)
         {
@@ -79,30 +82,6 @@ namespace SemaNewsWeb.Controllers
                 return RedirectToAction("Index", new { id = article.Id });
             }
             return View(article);
-        }
-
-        public ActionResult Edit(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        public ActionResult Edit(Article article)
-        {
-            throw new NotImplementedException();
-            if (ModelState.IsValid)
-            {
-                entities.Entry(article).State = System.Data.Entity.EntityState.Modified;
-                entities.SaveChanges();
-
-                SemaNewsSearchEngine.ArticleIndexer.AddUpdateLuceneIndex(article);
-                if(true)
-                {
-                    SemaNewsSearchEngine.ArticleIndexer.GenerateGraphs(new Article[]{ article}, "");
-                }
-
-            }
-            return RedirectToAction("Index", new { id = article.Id });
         }
 
 
